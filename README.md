@@ -17,10 +17,6 @@ Work in progress. Started as part of a global hackathon submission (WCHL 2025). 
 ## 🔗 Live Demo
 Coming soon on GitHub Pages.
 
-## 👥 Team
-- Lavanya – Frontend Developer
-- Akhil – AI/Backend Developer
-
 ## 📅 Development Roadmap
 - Phase 1: Project planning and feature listing ✔️  
 - Phase 2: Create base HTML layout ⏳  
