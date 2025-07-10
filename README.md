@@ -12,4 +12,4 @@ Clario is a mood-aware calendar app that helps users manage tasks, focus, and mo
 - UI/UX Design
 
 ## Status
-Work in progress. Started as part of an internship application. Actively building!
+Work in progress. Started as part of a global hackathon submission (WCHL 2025). Actively building and improving.
