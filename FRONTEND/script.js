@@ -491,6 +491,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Remove any old custom color setting (cleanup)
   localStorage.removeItem("stickyNoteColor");
 
+
+  //Todays MOOD
   const selectedMood = document.getElementById("selectedMood");
   const moodPopup = document.getElementById("moodPopup");
   selectedMood.addEventListener("click", () => {
@@ -508,6 +510,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  //WEATHER + TEMP
+  const apiKey = "0c397456888a4073170b65200548c39a";  // Replace with your valid key
+  const city = "Patiala,IN";
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+  .then(response => response.json())
+  .then(data => {
+    console.log("✅ Live Weather Data:", data);
+    const temp = Math.round(data.main.temp);
+    const weather = data.weather[0].main;
+    console.log(`🌤️ ${weather} — ${temp}°C`);
+  })
+  .catch(error => {
+    console.error("❌ Failed to fetch weather data:", error);
+  });
+  // On page load — fetch for saved city
+    document.addEventListener("DOMContentLoaded", () => {
+    const city = getSavedCity();
+    updateWeather(city);
+    setInterval(() => updateWeather(city), 1800000);  // Refresh every 30 min
+  });
+
+
+  //Profile PIC
   const profilePicBtn = document.getElementById("profilePicBtn");
   const profileModal = document.getElementById("profileModal");
   const profileDisplayArea = document.getElementById("profileDisplayArea");

@@ -469,6 +469,7 @@ nav li:hover {
 /* ========== MOOD TRACKER ========== */
 .mood-tracker {
   position: relative;
+  display: flex;
 }
 .mood-display {
   cursor: pointer;
@@ -505,7 +506,19 @@ nav li:hover {
   transform: scale(1.2);
 }
 .mood {
-  margin-left: 10px ;
+  margin: 0px 10px 0px 10px;
+  width: 170px;
+}
+
+/* ========== Weather Box ========== */
+.weather-box {
+  width: 110px;
+  height: 32px;
+  font-size: 20px;
+  border: 1px solid var(--accent-color);
+  border-left: 4px solid var(--accent-color);
+  border-right: 4px solid var(--accent-color);
+  padding-left: 23px;
 }
 
 /* ========== MINI CALENDAR ========== */
