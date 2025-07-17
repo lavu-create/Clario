@@ -511,24 +511,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   //WEATHER + TEMP
-  const apiKey = "0c397456888a4073170b65200548c39a";  // Replace with your valid key
-  const city = "Patiala,IN";
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-  .then(response => response.json())
-  .then(data => {
-    console.log("✅ Live Weather Data:", data);
-    const temp = Math.round(data.main.temp);
-    const weather = data.weather[0].main;
-    console.log(`🌤️ ${weather} — ${temp}°C`);
-  })
-  .catch(error => {
-    console.error("❌ Failed to fetch weather data:", error);
-  });
-  // On page load — fetch for saved city
-    document.addEventListener("DOMContentLoaded", () => {
+  const apiKey = "0c397456888a4073170b65200548c39a";  
+  const weatherBox = document.getElementById("weatherBox");
+  // Always use saved city or fallback
+  function getSavedCity() {
+    return localStorage.getItem("selectedCity") || "Patiala,IN";
+  }
+  function updateWeather(city) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=Patiala,IN&appid=${apiKey}&units=metric`)
+    .then(response => response.json())
+    .then(data => {
+      const temp = Math.round(data.main.temp);
+      const weatherMain = data.weather[0].main.toLowerCase();
+      let emoji = "❓";
+      if (weatherMain.includes("cloud")) emoji = "⛅";
+      else if (weatherMain.includes("clear")) emoji = "☀️";
+      else if (weatherMain.includes("rain")) emoji = "🌧️";
+      else if (weatherMain.includes("storm")) emoji = "⛈️";
+      else if (weatherMain.includes("snow")) emoji = "❄️";
+      else if (weatherMain.includes("fog") || weatherMain.includes("mist")) emoji = "🌫️";
+      weatherBox.innerHTML = `<span style="font-size: 1.8rem;">${emoji}</span> ${temp}°C`;
+      console.log(`✅ Weather updated for ${city}: ${emoji} ${temp}°C`);
+    })
+    .catch(error => {
+      weatherBox.textContent = "❓ --°C";
+      console.error("❌ Failed to fetch weather data:", error);
+    });
+  }
+  // Run on page load
+  document.addEventListener("DOMContentLoaded", () => {
     const city = getSavedCity();
     updateWeather(city);
-    setInterval(() => updateWeather(city), 1800000);  // Refresh every 30 min
+    setInterval(() => updateWeather(city), 1800000);
   });
 
 
