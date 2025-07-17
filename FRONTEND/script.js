@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const changePicBtn = document.getElementById("changePicBtn");
   const defaultPicBtn = document.getElementById("defaultPicBtn");
   const uploadPicInput = document.getElementById("uploadPicInput");
-  const defaultProfilePic = "/assets/App logo.jpg";
+  const defaultProfilePic = "assets/App logo.jpg";
   function loadProfilePic() {
     const savedPic = localStorage.getItem("profilePic");
     profilePicBtn.src = savedPic || defaultProfilePic;
