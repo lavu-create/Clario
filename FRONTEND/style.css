@@ -41,7 +41,7 @@ section#historySection.hidden, section#settingsSection.hidden {
 }
 /* ========== SIDEBAR ========== */
 .sidebar {
-  width: 350px;
+  width: 240px;
   transition: width 0.3s ease, transform 0.3s ease;
   flex-shrink: 0;
   background: var(--card-bg);
@@ -174,17 +174,17 @@ section#historySection.hidden, section#settingsSection.hidden {
 .profile-section {
   display: inline;
   justify-content: center;
-  padding: 100px 0px 40px 0px;
+  padding: 50px 0px 40px 0px;
 }
 .profile-pic-btn {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   font-size: 20px;
   background: transparent;
   color: white;
   cursor: pointer;
-  margin-left: 75px;
+  margin-left: 24px;
 }
 .profile-popup {
   display: flex;
@@ -214,7 +214,7 @@ section#historySection.hidden, section#settingsSection.hidden {
 }
 #sidebarNameInput {
   width: 160px;
-  margin-left: 84.4px;
+  margin-left: 24px;
   padding: 6px 10px;
   text-align: center;
   background: transparent;
@@ -271,7 +271,7 @@ nav li:hover {
   flex: 1;
   flex-direction: column;
   overflow: hidden;
-  margin-right: 474px;
+  margin-right: 370px;
   transition: margin 0.3s ease;
 }
 /* ========== CALENDAR MAIN ========== */
@@ -296,8 +296,7 @@ nav li:hover {
 .calendar-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: left;
   flex: 1;
   text-align: center;
 }
@@ -381,7 +380,7 @@ nav li:hover {
   text-overflow: ellipsis;
 }
 .calendar-grid div {
-  height: 100px;
+  height: 50px;
   background: var(--card-bg);
   border: 1px solid #ddd;
   padding: 0.5rem;
@@ -412,9 +411,9 @@ nav li:hover {
   position: absolute;
   top: 0;
   right: 0;
-  width: 440px;
-  min-width: 440px;
-  max-width: 440px;
+  width: 340px;
+  min-width: 340px;
+  max-width: 340px;
   height: 100%;
   padding: 1rem;
   background: var(--bg-color);
@@ -432,22 +431,14 @@ nav li:hover {
 .mood-stats {
   background: var(--card-bg);
   border: 1px solid #ccc;
-  padding: 1rem;
+  padding: 0.4rem;
   border-radius: 6px;
-}
-.prod-head {
-  width: 150px;
-  margin-top: 0px;
-}
-.prod-flex {
-  margin-bottom: 6px;
-  margin-top: 10px;
 }
 
 /* ========== Progress ========== */
 .progress-circle {
-  width: 80px;
-  height: 80px;
+  width: 98px;
+  height: 98px;
   border-radius: 50%;
   background: var(--note-bg);;
   display: flex;
@@ -455,11 +446,24 @@ nav li:hover {
   justify-content: center;
   font-size: 1.2rem;
   font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 .prod-flex {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start !important;
+}
+.prod-head {
+  margin: 10px 0px 10px 0px;
+}
+.list {
+  margin: 0px 0px 10px 0px;
+}
+.resource-card {
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
 }
 
 /* ========== MOOD TRACKER ========== */
@@ -499,6 +503,9 @@ nav li:hover {
 }
 .mood-popup button:hover {
   transform: scale(1.2);
+}
+.mood {
+  margin-left: 10px ;
 }
 
 /* ========== MINI CALENDAR ========== */
@@ -624,9 +631,12 @@ nav li:hover {
 .emoji-angry { background-color: var(--mood-angry); }
 
 /* ========== STICKY NOTES ========== */
+.sticky-notes {
+  margin-bottom: 2rem;
+}
 .sticky-notes textarea {
   width: 100%;
-  height: 120px;
+  height: 100px;
   background-color: var(--note-bg);
   color: var(--text-color);
   border: 1px solid #ccc;
