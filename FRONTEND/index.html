@@ -6,6 +6,7 @@
   <title>Clario</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="sunburst-theme">
   <div class="container">
@@ -222,14 +223,14 @@
           </div>
           <span id="weatherBox" class="weather-box">🌈 25°C</span>
         </div>
-        <div class="resource-card">
+        <!-- <div class="resource-card">
           <div class="prod-flex">
             <h3 class="prod-head">Productivity</h3>
             <h5 class="list">✅ 18 Done</h5>
             <h5 class="list">🕓 12 Pending</h5>
           </div>
           <div class="progress-circle"><span>60%</span></div>
-        </div>
+        </div> -->
         <div class="task-section">
           <div class="task-header">
             <h4>📋 My Tasks</h4>
@@ -260,6 +261,10 @@
           </div>
           <textarea id="stickyNoteArea" placeholder="Write your reminder here..."></textarea>
         </div>
+        <!-- Chart Section -->
+<canvas id="tasksChart" width="300" height="300"></canvas>
+<canvas id="moodChart" width="300" height="300"></canvas>
+<canvas id="eventChart" width="300" height="300"></canvas>
       </aside>
     </div>  
   </div>
@@ -309,9 +314,13 @@
   <div id="notification" class="toast hidden">Saved!</div>
   <!-- Confetti Canvas -->
   <canvas id="confettiCanvas" class="hidden"></canvas>
+<<<<<<< HEAD
 
 
 
+=======
+   <script src="../data-viz/chart.js"></script>
+>>>>>>> b6e74b41f01bd62ad55ab90d9323348924d7bf0d
   <script src="script.js"></script>
 </body>
 </html>

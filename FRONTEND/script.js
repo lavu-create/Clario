@@ -161,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
             modal.classList.add("hidden");
             document.getElementById("dayEventsModal").remove();
             renderCalendar();
+            renderEventChart();
           });
           newCancel.addEventListener("click", () => {
             modal.classList.add("hidden");
@@ -258,6 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     eventModal.classList.add("hidden");
     showNotification("Saved!");
     renderCalendar();
+    renderEventChart();
   });
   deleteEvent.addEventListener("click", () => {
     const modal = document.getElementById("deleteConfirmModal");
@@ -279,6 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("events", JSON.stringify(events));
         eventModal.classList.add("hidden");
         renderCalendar();
+        renderEventChart();
       }
       modal.classList.add("hidden");
     });
@@ -329,6 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
             allTasks[date][index] = task;
             localStorage.setItem("tasks", JSON.stringify(allTasks));
             renderTasks();
+            renderTaskChart();
           });
           // Task Text
           const span = document.createElement("span");
@@ -342,6 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
             allTasks[date] = tasks;
             localStorage.setItem("tasks", JSON.stringify(allTasks));
             renderTasks();
+            renderTaskChart();
           });
           li.appendChild(checkbox);
           li.appendChild(span);
@@ -370,6 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
           allTasks[selectedTaskDate][index] = task;
           localStorage.setItem("tasks", JSON.stringify(allTasks));
           renderTasks();
+          renderTaskChart();
         });
         // Task Text
         const span = document.createElement("span");
@@ -383,6 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
           allTasks[selectedTaskDate] = tasks;
           localStorage.setItem("tasks", JSON.stringify(allTasks));
           renderTasks();
+          renderTaskChart();
         });
         li.appendChild(checkbox);
         li.appendChild(span);
@@ -468,6 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("tasks", JSON.stringify(allTasks));
       taskInput.value = "";
       renderTasks();
+      renderTaskChart();
     }
   });
   
@@ -491,24 +499,36 @@ document.addEventListener("DOMContentLoaded", () => {
   // Remove any old custom color setting (cleanup)
   localStorage.removeItem("stickyNoteColor");
 
+//Mood Tracker
+const selectedMood = document.getElementById("selectedMood");
+const moodPopup = document.getElementById("moodPopup");
+// Toggle popup on click
+selectedMood.addEventListener("click", () => {
+  moodPopup.classList.toggle("hidden");
+});
+// Handle mood selection
+moodPopup.querySelectorAll("button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const mood = btn.textContent;
+    // Update visible mood
+    selectedMood.textContent = mood;
+    moodPopup.classList.add("hidden");
+    // Save to localStorage
+    const moods = JSON.parse(localStorage.getItem("moods") || "[]");
+    moods.push(mood);
+    localStorage.setItem("moods", JSON.stringify(moods));
+    // Update the chart
+    renderMoodChart();
+  });
+});
 
-  //Todays MOOD
-  const selectedMood = document.getElementById("selectedMood");
-  const moodPopup = document.getElementById("moodPopup");
-  selectedMood.addEventListener("click", () => {
-    moodPopup.classList.toggle("hidden");
-  });
-  moodPopup.querySelectorAll("button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      selectedMood.textContent = btn.textContent;
-      moodPopup.classList.add("hidden");
-    });
-  });
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".mood-tracker")) {
-      moodPopup.classList.add("hidden");
-    }
-  });
+// Close popup if clicked outside
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".mood-tracker")) {
+    moodPopup.classList.add("hidden");
+  }
+});
+
 
   //WEATHER + TEMP
   const apiKey = "0c397456888a4073170b65200548c39a";  
@@ -725,6 +745,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+<<<<<<< HEAD
 
   //Terms & Policies
   const openTermsBtn = document.getElementById("openTermsBtn");
@@ -760,4 +781,9 @@ document.addEventListener("DOMContentLoaded", () => {
   closeLegalModal.addEventListener("click", () => {
     legalModal.classList.add("hidden");
   });
+=======
+  if (window.renderTaskChart) renderTaskChart();
+  if (window.renderMoodChart) renderMoodChart();
+  if (window.renderEventChart) renderEventChart();
+>>>>>>> b6e74b41f01bd62ad55ab90d9323348924d7bf0d
 });
