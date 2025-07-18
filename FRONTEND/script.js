@@ -780,7 +780,8 @@ document.addEventListener("click", (e) => {
     legalModal.classList.add("hidden");
   });
   
-  if (window.renderTaskChart) renderTaskChart();
-  if (window.renderMoodChart) renderMoodChart();
-  if (window.renderEventChart) renderEventChart();
+  // Render charts if functions exist
+  if (typeof renderTaskChart === "function") renderTaskChart();
+  if (typeof renderEventChart === "function") renderEventChart();
+  if (typeof renderMoodChart === "function") renderMoodChart();
 });

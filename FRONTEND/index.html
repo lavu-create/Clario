@@ -6,16 +6,15 @@
   <title>Clario</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="sunburst-theme">
   <div class="container">
-    <button id="menuToggle" class="menu-btn">❯</button>
+    <button aria-label="Toggle Sidebar" id="menuToggle" class="menu-btn">❯</button>
 
     <!-- Sidebar(Left)-->
     <aside class="sidebar">
       <div class="theme-controls">
-        <button id="resetThemeBtn" class="reset-Btn">⟳</button>
+        <button id="resetThemeBtn" class="reset-btn"><i class="fa-solid fa-spinner"></i></button>
         <select id="themeSwitcher">
           <option value="daylight">☀️Daylight</option>
           <option value="moonlight">🌑Moonlight</option>
@@ -111,24 +110,24 @@
       <section id="historySection" class="hidden">
         <h2>📜 History</h2>
         <p>Here you can view past events and completed tasks.</p>
+        <hr>
         <div>
           <div class="history">
-            <button id="event-his" class="his-btn">📅 Events</button>
+            <h3 id="event-his" class="his-head">📅 Events</h3>
+            <div class="chart">
+              <canvas id="eventChart"></canvas>
+            </div>
           </div>
           <hr>
           <div class="history">
-            <button id="task-his" class="his-btn">✅ Tasks</h3>
-          </div>
-          <hr>
-          <div class="history">
-            <button id="mood-his" class="his-btn">📊 Mood Log</button>
-          </div>
-          <hr>
-          <div class="history">
-            <button id="export-his" class="his-btn">📤 Export data</button>
+            <h3 id="mood-his" class="his-head">📊 Mood Log</h3>
+            <div class="chart">
+              <canvas id="moodChart"></canvas>
+            </div>
           </div>
           <hr>
           <div class="set-his">
+            <button id="export-his" class="themed-btn">📤 Export data</button>
             <button id="clearHistoryBtn" class="danger-btn">🗑️ Clear History</button>
           </div>
         </div>
@@ -231,6 +230,15 @@
           </div>
           <div class="progress-circle"><span>60%</span></div>
         </div> -->
+        <div class="resource-card">
+          <div>
+            <h3 id="task-his" class="prod-head">📶 Progress</h3>
+            <div id="taskStatus" class="task-summary-text"></div>
+          </div>
+          <div class="chart task-chart-wrapper">
+            <canvas id="tasksChart" class="chart"></canvas>
+          </div>
+        </div>
         <div class="task-section">
           <div class="task-header">
             <h4>📋 My Tasks</h4>
@@ -257,14 +265,10 @@
         <!--Sticky Notes-->
         <div class="sticky-notes">
           <div class="sticky-header">
-            <h4 class="list">📌 Sticky Notes</h4>
+            <h4 class="sticky-head">📌 Sticky Notes</h4>
           </div>
           <textarea id="stickyNoteArea" placeholder="Write your reminder here..."></textarea>
         </div>
-        <!-- Chart Section -->
-<canvas id="tasksChart" width="300" height="300"></canvas>
-<canvas id="moodChart" width="300" height="300"></canvas>
-<canvas id="eventChart" width="300" height="300"></canvas>
       </aside>
     </div>  
   </div>
@@ -315,7 +319,13 @@
   <!-- Confetti Canvas -->
   <canvas id="confettiCanvas" class="hidden"></canvas>
 
-  <script src="../Data-viz/chart.js"></script>
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../DATA-VIZUALIZATION/chart.js" defer></script>
+  <script src="../FRONTEND/script.js" defer></script>
+  <script>
+    renderTaskChart();
+    renderMoodChart();
+    renderEventChart();
+  </script>
 </body>
 </html>

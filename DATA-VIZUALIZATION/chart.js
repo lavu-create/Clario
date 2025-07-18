@@ -1,33 +1,45 @@
-  function renderTaskChart() {
-  const allTasks = JSON.parse(localStorage.getItem("tasks") || "{}");
+function renderTaskChart() {
+  const allTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   let completed = 0, pending = 0;
-  Object.values(allTasks).forEach(tasks =>
-    tasks.forEach(t => t.done ? completed++ : pending++)
-  );
+  allTasks.forEach(t => t.done ? completed++ : pending++);
   const ctx = document.getElementById('tasksChart').getContext('2d');
   if (window.tasksChartObj) window.tasksChartObj.destroy();
- window.tasksChartObj = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Completed', 'Pending'],
-    datasets: [{
-      data: [completed, pending],
-      backgroundColor: ['#4caf50', '#f44336'],
-    }]
-  },
-  options: {
-    responsive: false,
-    maintainAspectRatio: false
-  }
-});
-
+  window.tasksChartObj = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Completed', 'Pending'],
+      datasets: [{
+        data: [completed, pending],
+        backgroundColor: ['#4caf50', '#f44336'],
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+  // 👇 Display status on the right
+  const statusBox = document.getElementById("taskStatus");
+  const total = completed + pending;
+  const percent = total ? Math.round((completed / total) * 100) : 0;
+  statusBox.innerHTML = `
+    🟢 Completed: <span style="color: #4caf50; font-weight: bold;">${completed}</span><br>
+    🔴 Pending: <span style="color: #f44336; font-weight: bold;">${pending}</span><br><br>
+    📈 Efficiency: <span style="color: #2196f3; font-weight: bold;">${percent}%</span>
+  `;
 }
+
 
 function renderMoodChart() {
   const moods = JSON.parse(localStorage.getItem("moods") || "[]");
   const moodTypes = ['😊', '😢', '😡', '😴', '😍'];
   const moodCounts = moodTypes.map(mood =>
-    moods.filter(m => m === mood).length
+    moods.filter(m => m.mood === mood).length
   );
   const ctx = document.getElementById('moodChart').getContext('2d');
   if (window.moodChartObj) window.moodChartObj.destroy();
