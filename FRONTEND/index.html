@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clario</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="sunburst-theme">
   <div class="container">
@@ -131,14 +132,14 @@
           </div>
           <span id="weatherBox" class="weather-box">🌈 25°C</span>
         </div>
-        <div class="resource-card">
+        <!-- <div class="resource-card">
           <div class="prod-flex">
             <h3 class="prod-head">Productivity</h3>
             <h5 class="list">✅ 18 Done</h5>
             <h5 class="list">🕓 12 Pending</h5>
           </div>
           <div class="progress-circle"><span>60%</span></div>
-        </div>
+        </div> -->
         <div class="task-section">
           <div class="task-header">
             <h4>📋 My Tasks</h4>
@@ -169,6 +170,10 @@
           </div>
           <textarea id="stickyNoteArea" placeholder="Write your reminder here..."></textarea>
         </div>
+        <!-- Chart Section -->
+<canvas id="tasksChart" width="300" height="300"></canvas>
+<canvas id="moodChart" width="300" height="300"></canvas>
+<canvas id="eventChart" width="300" height="300"></canvas>
       </aside>
     </div>  
   </div>
@@ -210,7 +215,7 @@
 
   <!-- Confetti Canvas -->
   <canvas id="confettiCanvas" class="hidden"></canvas>
-
+   <script src="../data-viz/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
