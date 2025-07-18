@@ -606,23 +606,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Export Data
-  document.getElementById("exportData").addEventListener("click", () => {
-    const data = {
-      events: JSON.parse(localStorage.getItem("events") || "[]"),
-      tasks: JSON.parse(localStorage.getItem("tasks") || "[]"),
-      stickyNote: localStorage.getItem("stickyNote") || "",
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json",
-    });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "clario_data.json";
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(link.href), 100);
-  });
-
   // Reset All Data
   document.getElementById("resetBtn").addEventListener("click", () => {
     const modal = document.getElementById("deleteConfirmModal");
@@ -740,5 +723,41 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       resultsDiv.innerHTML = "<em>No matches found</em>";
     }
+  });
+
+
+  //Terms & Policies
+  const openTermsBtn = document.getElementById("openTermsBtn");
+  const openPrivacyBtn = document.getElementById("openPrivacyBtn");
+  const legalModal = document.getElementById("legalModal");
+  const legalTitle = document.getElementById("legalTitle");
+  const legalContent = document.getElementById("legalContent");
+  const closeLegalModal = document.getElementById("closeLegalModal");
+  const termsText = `
+    <h3>1. Acceptance of Terms</h3>
+    <p>By using Cllario, you agree to our terms...</p>
+    <h3>2. User Responsibilities</h3>
+    <p>You must use the app ethically and legally...</p>
+    <!-- Add more sections here -->
+  `;
+  const privacyText = `
+    <h3>1. Data We Collect</h3>
+    <p>We collect only necessary data like name, photo, tasks...</p>
+    <h3>2. How We Use Data</h3>
+    <p>Your data stays in your device and helps personalize the app...</p>
+    <!-- Add more sections here -->
+  `;
+  openTermsBtn.addEventListener("click", () => {
+    legalTitle.textContent = "Terms & Conditions";
+    legalContent.innerHTML = termsText;
+    legalModal.classList.remove("hidden");
+  });
+  openPrivacyBtn.addEventListener("click", () => {
+    legalTitle.textContent = "Privacy Policy";
+    legalContent.innerHTML = privacyText;
+    legalModal.classList.remove("hidden");
+  });
+  closeLegalModal.addEventListener("click", () => {
+    legalModal.classList.add("hidden");
   });
 });

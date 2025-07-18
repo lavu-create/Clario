@@ -32,9 +32,68 @@ body {
   position: relative;
 }
 
+
 section#historySection.hidden, section#settingsSection.hidden {
-  padding: 2rem;
+  padding: 1rem;
+  margin-top: 0.2rem;
 }
+/* ======== Settings ========= */
+.settings {
+  padding: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.settings-head {
+  margin: 0px 0px 4px 0px;
+}
+.color-sett-btn {
+  border: 2px solid var(--accent-color);
+  background: transparent;
+  color: var(--text-color);
+  padding: 4px 10px 4px 10px;
+  font-size: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.sett-btn {
+  margin: 8px 10px 0px 0px;
+}
+.settings-body {
+  padding: 5px 0px 4px 0px;
+}
+.reminder-input {
+  width: 40px;
+}
+.terms {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  text-decoration-line: underline;
+}
+.term-btn {
+  margin-top: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+.set-his {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+/* ========== History ========== */
+.his-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 20px;
+  cursor: pointer;
+}
+
 
 .sidebar-collapsed .main-content {
   margin-left: 0; /* no sidebar */
@@ -235,7 +294,8 @@ nav ul {
   margin: 0;
 }
 nav li {
-  padding: 10px;
+  padding: 4px;
+  margin: 0px 0px 4px 0px;
   cursor: pointer;
   border-radius: 4px;
 }
@@ -251,19 +311,13 @@ nav li:hover {
   gap: 6px;
   margin-top: auto;
 }
-.logout-btn {
-  padding: 0.6rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-  background-color: var(--accent-color);
-  color: black;
-  box-sizing: border-box;
-}
-.logout-btn.danger {
+.danger-btn {
   background-color: var(--danger-color);
   color: white;
+  border: none;
+  font-size: 19px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .main-content {
@@ -334,18 +388,6 @@ nav li:hover {
 }
 #searchCategory {
   padding: 0.5rem;
-}
-.digital-clock {
-  font-family: 'Courier New', monospace;
-  font-size: 1.2rem;
-  background-color: var(--card-bg);
-  border: 2px solid var(--accent-color);
-  border-radius: 6px;
-  padding: 4px 12px;
-  color: var(--text-color);
-  display: inline-block;
-  min-width: 100px;
-  text-align: center;
 }
 
 /* ========== CALENDAR GRID ========== */
@@ -839,6 +881,19 @@ body.sunburst-theme {
   --miniCal-bg: rgb(209, 44, 3);
 }
 
+.theme-border {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  background-color: var(--card-bg);
+  border: 2px solid var(--accent-color);
+  border-radius: 6px;
+  padding: 4px 12px;
+  color: var(--text-color);
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+}
+
 /* ========== Base themed button style ========== */
 .themed-btn {
   padding: 0.5rem 1rem;
@@ -872,6 +927,12 @@ body.sunburst-theme {
 .sunburst-theme .themed-btn {
   background-color: rgb(255, 118, 84);
   color: #000;
+}
+.reset-Btn {
+  background-color: var(--accent-color) !important;
+}
+.reset-Btn :hover {
+  cursor: pointer;
 }
 
 /* ========== RESPONSIVE ========== */
