@@ -745,8 +745,6 @@ document.addEventListener("click", (e) => {
     }
   });
 
-<<<<<<< HEAD
-
   //Terms & Policies
   const openTermsBtn = document.getElementById("openTermsBtn");
   const openPrivacyBtn = document.getElementById("openPrivacyBtn");
@@ -781,9 +779,8 @@ document.addEventListener("click", (e) => {
   closeLegalModal.addEventListener("click", () => {
     legalModal.classList.add("hidden");
   });
-=======
+  
   if (window.renderTaskChart) renderTaskChart();
   if (window.renderMoodChart) renderMoodChart();
   if (window.renderEventChart) renderEventChart();
->>>>>>> b6e74b41f01bd62ad55ab90d9323348924d7bf0d
 });
