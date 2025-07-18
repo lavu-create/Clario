@@ -236,9 +236,11 @@ canvas {
   border: 1px solid #ccc;
 }
 .reset-btn {
-  padding: 0px 0px 0px 0px;
-  background-color: var(--accent-color);
+  background: transparent;
+  border: none;
+  font-size: 14px;
   cursor: pointer;
+  padding: 0px;
 }
 /* === Theme Controls in Sidebar === */
 .theme-controls {
