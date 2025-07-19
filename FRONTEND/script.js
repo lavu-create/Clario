@@ -437,83 +437,185 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   
-  const toggleMiniCal = document.getElementById("toggleMiniCal");
+  // Initialize mini calendar
   const miniCalendarContainer = document.getElementById("miniCalendarContainer");
+  const toggleMiniCal = document.getElementById("toggleMiniCal");
   let isMiniCalCollapsed = false;
-  toggleMiniCal.addEventListener("click", () => {
-    isMiniCalCollapsed = !isMiniCalCollapsed;
-    miniCalendarContainer.style.display = isMiniCalCollapsed ? "none" : "block";
-    toggleMiniCal.textContent = isMiniCalCollapsed ? "▶" : "▼";
-  });
-  selectedTaskDate = new Date().toISOString().split("T")[0];
-  renderTasks();
-  function dragStart(e) {
-    e.dataTransfer.setData("text/plain", e.target.dataset.index);
+
+  if (toggleMiniCal && miniCalendarContainer) {
+    toggleMiniCal.addEventListener("click", () => {
+      isMiniCalCollapsed = !isMiniCalCollapsed;
+      miniCalendarContainer.style.display = isMiniCalCollapsed ? "none" : "block";
+      toggleMiniCal.textContent = isMiniCalCollapsed ? "▶" : "▼";
+    });
   }
+
+  // Initialize drag and drop functionality
+  function dragStart(e) {
+    e.dataTransfer.setData("text/plain", e.target.dataset.id);
+  }
+
   function dragOver(e) {
     e.preventDefault();
   }
-  function drop(e) {
-    const from = e.dataTransfer.getData("text/plain");
-    const to = e.target.dataset.index;
-    const allTasks = JSON.parse(localStorage.getItem("tasks") || "{}");
-    const tasks = allTasks[selectedTaskDate] || [];
-    const [moved] = tasks.splice(from, 1);
-    tasks.splice(to, 0, moved);
-    allTasks[selectedTaskDate] = tasks;
-    localStorage.setItem("tasks", JSON.stringify(allTasks));
-    renderTasks();
-  }
-  addTaskBtn.addEventListener("click", () => {
-    const task = taskInput.value.trim();
-    if (task) {
-      const allTasks = JSON.parse(localStorage.getItem("tasks") || "{}");
-      if (!allTasks[selectedTaskDate]) {
-        allTasks[selectedTaskDate] = [];
-      }
-      allTasks[selectedTaskDate].push({ text: task, done: false });
-      localStorage.setItem("tasks", JSON.stringify(allTasks));
-      taskInput.value = "";
-      renderTasks();
-      renderTaskChart();
-    }
-  });
-  
-  const stickyNoteArea = document.getElementById("stickyNoteArea");
-  // Apply background color from theme variable
-  function applyStickyNoteColor() {
-    stickyNoteArea.style.backgroundColor = getComputedStyle(document.body).getPropertyValue('--note-bg');
-  }
-  // On page load
-  stickyNoteArea.value = localStorage.getItem("stickyNote") || "";
-  applyStickyNoteColor();
-  // Save note content on input
-  stickyNoteArea.addEventListener("input", () => {
-    localStorage.setItem("stickyNote", stickyNoteArea.value);
-  });
-  // Observe theme changes to update sticky note background color
-  const observer = new MutationObserver(() => {
-    applyStickyNoteColor();
-  });
-  observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-  // Remove any old custom color setting (cleanup)
-  localStorage.removeItem("stickyNoteColor");
 
-//Mood Tracker
-const selectedMood = document.getElementById("selectedMood");
-const moodPopup = document.getElementById("moodPopup");
-// Toggle popup on click
-selectedMood.addEventListener("click", () => {
-  moodPopup.classList.toggle("hidden");
-});
-// Handle mood selection
-moodPopup.querySelectorAll("button").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const mood = btn.textContent;
-    // Update visible mood
-    selectedMood.textContent = mood;
-    moodPopup.classList.add("hidden");
-    // Save to localStorage
+  async function drop(e) {
+    e.preventDefault();
+    const taskId = e.dataTransfer.getData("text/plain");
+    const newDueDate = new Date(selectedTaskDate);
+    newDueDate.setHours(23, 59, 59);
+    
+    try {
+      await dataService.updateTask(taskId, { dueDate: newDueDate.toISOString() });
+      await renderTasks();
+      showNotification('Task moved successfully!', 'success');
+    } catch (error) {
+      console.error('Error moving task:', error);
+      showNotification('Failed to move task', 'error');
+    }
+  }
+  
+  // Set up event delegation for task list
+  if (taskList) {
+    taskList.addEventListener('click', async (e) => {
+      // Handle task completion toggle
+      if (e.target.matches('input[type="checkbox"]')) {
+        const taskItem = e.target.closest('li');
+        if (taskItem) {
+          const taskId = taskItem.dataset.id;
+          try {
+            await dataService.updateTask(taskId, { completed: e.target.checked });
+            if (typeof renderTaskChart === 'function') {
+              renderTaskChart();
+            }
+          } catch (error) {
+            console.error('Error updating task:', error);
+            e.target.checked = !e.target.checked; // Revert on error
+            showNotification('Failed to update task', 'error');
+          }
+        }
+      }
+      
+      // Handle task deletion
+      if (e.target.matches('button') && e.target.textContent === '🗑️') {
+        const taskItem = e.target.closest('li');
+        if (taskItem && confirm('Are you sure you want to delete this task?')) {
+          try {
+            await dataService.deleteTask(taskItem.dataset.id);
+            await renderTasks();
+            if (typeof renderTaskChart === 'function') {
+              renderTaskChart();
+            }
+            showNotification('Task deleted', 'success');
+          } catch (error) {
+            console.error('Error deleting task:', error);
+            showNotification('Failed to delete task', 'error');
+          }
+        }
+      }
+    });
+    
+    // Initialize drag and drop
+    taskList.addEventListener('dragover', dragOver);
+    taskList.addEventListener('drop', drop);
+    
+    // Set up draggable items
+    const setupDraggableItems = () => {
+      const items = taskList.querySelectorAll('li');
+      items.forEach(item => {
+        item.draggable = true;
+        item.addEventListener('dragstart', dragStart);
+      });
+    };
+    
+    // Initial setup
+    setupDraggableItems();
+    
+    // Add new task
+    if (addTaskBtn) {
+      addTaskBtn.addEventListener("click", async () => {
+        const title = taskInput.value.trim();
+        if (title) {
+          try {
+            const dueDate = new Date(selectedTaskDate);
+            dueDate.setHours(23, 59, 59); // End of the selected day
+            
+            await dataService.createTask({
+              title,
+              description: "",
+              dueDate: dueDate.toISOString(),
+              priority: "medium",
+              category: "personal",
+              completed: false
+            });
+            
+            taskInput.value = "";
+            await renderTasks();
+            if (typeof renderTaskChart === 'function') {
+              renderTaskChart();
+            }
+            showNotification('Task added successfully!', 'success');
+          } catch (error) {
+            console.error('Error creating task:', error);
+            showNotification('Failed to add task. Please try again.', 'error');
+          }
+        }
+      });
+    }
+  }
+  
+  // Initial render
+  renderTasks();
+  
+  // Sticky note functionality
+  const stickyNoteArea = document.getElementById('stickyNote');
+  if (stickyNoteArea) {
+    // On page load
+    stickyNoteArea.value = localStorage.getItem("stickyNote") || "";
+    
+    // Apply sticky note color
+    const applyStickyNoteColor = () => {
+      const isDark = document.body.classList.contains('moonlight-theme') || 
+                    document.body.classList.contains('midnight-theme');
+      stickyNoteArea.style.backgroundColor = isDark ? '#2d3748' : '#f7fafc';
+      stickyNoteArea.style.color = isDark ? '#e2e8f0' : '#1a202c';
+    };
+    
+    applyStickyNoteColor();
+    
+    // Save note content on input
+    stickyNoteArea.addEventListener("input", () => {
+      localStorage.setItem("stickyNote", stickyNoteArea.value);
+    });
+    
+    // Observe theme changes to update sticky note background color
+    const observer = new MutationObserver(() => {
+      applyStickyNoteColor();
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    
+    // Remove any old custom color setting (cleanup)
+    localStorage.removeItem("stickyNoteColor");
+  }
+  
+  // Mood Tracker
+  const selectedMood = document.getElementById("selectedMood");
+  const moodPopup = document.getElementById("moodPopup");
+  
+  if (selectedMood && moodPopup) {
+    // Toggle popup on click
+    selectedMood.addEventListener("click", () => {
+      moodPopup.classList.toggle("hidden");
+    });
+    
+    // Handle mood selection
+    moodPopup.querySelectorAll("button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const mood = btn.textContent;
+        // Update visible mood
+        selectedMood.textContent = mood;
+        moodPopup.classList.add("hidden");
+        // Save to localStorage
     const moods = JSON.parse(localStorage.getItem("moods") || "[]");
     moods.push(mood);
     localStorage.setItem("moods", JSON.stringify(moods));
