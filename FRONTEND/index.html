@@ -119,7 +119,267 @@
               <canvas id="eventChart"></canvas>
             </div>
           </div>
+          <
+          main
+          <div class="history">
+            <h3 id="mood-his" class="his-head">📊 Mood Log</h3>
+            <div class="chart">
+              <canvas id="moodChart"></canvas>
+            </div>
+          </div>
           <hr>
+          <div class="set-his">
+            <button id="export-his" class="themed-btn">📤 Export data</button>
+            <button id="clearHistoryBtn" class="danger-btn">🗑️ Clear History</button>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="settingsSection" class="hidden">
+        <h2>⚙️ Settings</h2>
+        <p>Personalize your experience — update your account info, adjust security settings, set your location, back up your data, and more.</p>
+        <hr>
+        <div id="accountSettings" class="settings">
+          <h3 class="settings-head">👤 Account Settings</h3>
+          <div class="settings-body">
+            <button class="sett-btn">ℹ️ Your Info</button>
+            <button class="sett-btn">🔑 Sign In / Sign Up</button>
+            <button class="sett-btn">📧 Email & Accounts</button>
+            <button class="sett-btn">🛡️ Privacy</button>
+            <button class="sett-btn">📥 Backup & Restore</button>
+          </div>
+        </div>
+        <hr>
+        <div id="timeSettings" class="settings">
+          <h3 class="settings-head">🕒 Clock Settings</h3>
+          <div class="settings-body">
+            <label>Time Format:
+              <select id="timeFormat" class="sett-btn">
+                <option value="24">24-hour</option>
+                <option value="12">12-hour (AM/PM)</option>
+              </select>
+            </label>
+            <label>⏰ Event Reminder:
+              <input type="number" value="4" class="reminder-input"/>
+              <select id="eventReminder" class="sett-btn">
+                <option>min</option>
+                <option>sec</option>
+                <option>hrs</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <hr>
+        <div id="location-settings" class="settings">
+          <h3 class="settings-head">🌍 Location</h3>
+          <div class="settings-body">
+            <label>City:
+              <select id="cityLocation" class="sett-btn">
+                <option>Patiala</option>
+                <option>Los Angeles</option>
+                <option>Berlin</option>
+              </select>
+            </label>
+            <label>State:
+              <select id="stateLocation" class="sett-btn">
+                <option>Punjab</option>
+                <option>California</option>
+                <option>Berlin</option>
+              </select>
+            </label>
+            <label>Country:
+              <select id="countryLocation" class="sett-btn">
+                <option>India</option>
+                <option>USA</option>
+                <option>Germany</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <hr>
+        <div class="set-his">
+          <button id="settSave" class="color-sett-btn">Save</button>
+        </div>
+        <div class="terms">
+          <button id="openTermsBtn" class="term-btn">📄 Terms & Conditions</button>
+          <button id="openPrivacyBtn" class="term-btn">🔒 Privacy Policy</button>
+        </div>
+      </section>
+      
+
+      <!-- Right Panel -->
+      <aside class="right-panel">
+        <div id="liveClock" class="theme-border">00:00:00</div>
+        <div class="mood-tracker">
+          <h4 class="mood">Today's Mood<span id="selectedMood" class="mood-display">😊</span></h4>
+          <div id="moodPopup" class="mood-popup hidden">
+            <!-- Extensive mood emoji set -->
+            <button>😃</button><button>😊</button><button>😍</button><button>🤩</button>
+            <button>😐</button><button>😕</button><button>😢</button><button>😭</button>
+            <button>😡</button><button>😴</button><button>🤯</button><button>😎</button>
+            <button>😇</button><button>😱</button><button>🤔</button><button>🥳</button>
+            <button>💀</button><button>🤒</button><button>🥺</button><button>😶</button>
+            <button>😬</button><button>🙄</button><button>😲</button>
+          </div>
+          <span id="weatherBox" class="weather-box">🌈 25°C</span>
+        </div>
+        <!-- <div class="resource-card">
+          <div class="prod-flex">
+            <h3 class="prod-head">Productivity</h3>
+            <h5 class="list">✅ 18 Done</h5>
+            <h5 class="list">🕓 12 Pending</h5>
+          </div>
+          <div class="progress-circle"><span>60%</span></div>
+        </div> -->
+        <div class="resource-card">
+          <div>
+            <h3 id="task-his" class="prod-head">📶 Progress</h3>
+            <div id="taskStatus" class="task-summary-text"></div>
+          </div>
+          <div class="chart task-chart-wrapper">
+            <canvas id="tasksChart" class="chart"></canvas>
+          </div>
+        </div>
+        <div class="task-section">
+          <div class="task-header">
+            <h4>📋 My Tasks</h4>
+            <button id="toggleMiniCal" title="Toggle Mini Calendar">▼</button>
+          </div>
+          <!-- Collapsible Mini Calendar -->
+          <div id="miniCalendarContainer">
+            <div class="mini-calendar" id="miniCalendar"></div>
+          </div>
+          <!-- Task Filter -->
+          <select id="taskFilter">
+            <option value="selected">Selected Date</option>
+            <option value="done">Done</option>
+            <option value="pending">Pending</option>
+            <option value="all">All</option>
+          </select>
+          <!-- Task List + Add New -->
+          <div id="taskList" class="task-list"></div>
+          <div class="new-task">
+            <input type="text" id="newTaskInput" placeholder="New task..." />
+            <button id="addTaskBtn" class="themed-btn">Add</button>
+          </div>
+        </div>
+        <!--Sticky Notes-->
+        <div class="sticky-notes">
+          <div class="sticky-header">
+            <h4 class="sticky-head">📌 Sticky Notes</h4>
+          </div>
+          <textarea id="stickyNoteArea" placeholder="Write your reminder here..."></textarea>
+        </div>
+      </aside>
+    </div>  
+  </div>
+
+
+
+  <!-- Event Modal -->
+  <div id="eventModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h3>Create New Event</h3>
+      <input type="hidden" id="eventIndex" />
+      <input type="text" id="eventTitle" placeholder="Event Title" />
+      <textarea id="eventDesc" placeholder="Description (optional)"></textarea>
+      <input type="date" id="eventDate" />
+      <select id="eventCategory">
+        <option>💼 Work</option>
+        <option>❤️ Family</option>
+        <option>🤍 Friends</option>
+        <option>🎧 Chill</option>
+      </select>
+      <button id="saveEvent" class="themed-btn">Save</button>
+      <button id="deleteEvent" class="danger" style="display: none;">Delete</button>
+    </div>
+  </div>
+  <!-- Delete Event Confirmation Modal -->
+  <div id="deleteConfirmModal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="confirmModalMessage">Are you sure?</h3>
+      <div class="confirm-buttons">
+        <button id="confirmDeleteBtn" class="danger">Delete</button>
+        <button id="cancelDeleteBtn" class="themed-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div id="legalModal" class="custom-modal hidden">
+    <div class="modal-content">
+      <span id="closeLegalModal" class="close-btn">✖</span>
+      <h2 id="legalTitle">Title</h2>
+      <div id="legalContent" class="modal-text scrollable"></div>
+    </div>
+  </div>
+
+
+
+  <!-- Notification Toast -->
+  <div id="notification" class="toast hidden">Saved!</div>
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas" class="hidden"></canvas>
+
+  <!-- Load API and auth scripts first -->
+  <script type="module" src="./api.js"></script>
+  <script type="module" src="./auth.js"></script>
+  <script type="module" src="./dataService.js"></script>
+  
+  <!-- Main application script -->
+  <script type="module">
+    import { authService } from './auth.js';
+    
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', () => {
+      const authOverlay = document.getElementById('authOverlay');
+      
+      if (!authService.isAuthenticated()) {
+        // Show auth overlay if not authenticated
+        authOverlay.classList.remove('hidden');
+      } else {
+        // Hide auth overlay if authenticated
+        authOverlay.classList.add('hidden');
+        
+        // Load the rest of the application
+        const script = document.createElement('script');
+        script.src = 'script.js';
+        document.body.appendChild(script);
+        
+        // Load chart.js after script.js
+        script.onload = () => {
+          const chartScript = document.createElement('script');
+          chartScript.src = 'chart.js';
+          document.body.appendChild(chartScript);
+        };
+      }
+      
+      // Add logout functionality
+      const logoutBtn = document.createElement('button');
+      logoutBtn.id = 'logoutBtn';
+      logoutBtn.className = 'btn btn-logout';
+      logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+      logoutBtn.style.marginTop = '1rem';
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          await authService.logout();
+          window.location.href = 'login.html';
+        } catch (error) {
+          console.error('Logout error:', error);
+        }
+      });
+      
+      // Add logout button to settings section
+      const settingsSection = document.getElementById('settingsSection');
+      if (settingsSection) {
+        settingsSection.appendChild(logoutBtn);
+      }
+    });
+  </script>
+  <script src="../DATA-VIZUALIZATION/chart.js" defer></script>
+  <script src="../FRONTEND/script.js" defer></script>
+</body>
+
           <div class="history">
             <h3 id="mood-his" class="his-head">📊 Mood Log</h3>
             <div class="chart">
@@ -322,4 +582,5 @@
   <script src="../DATA-VIZUALIZATION/chart.js" defer></script>
   <script src="../FRONTEND/script.js" defer></script>
 </body>
+ main
 </html>
