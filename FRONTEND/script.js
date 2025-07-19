@@ -587,13 +587,11 @@ document.addEventListener("DOMContentLoaded", () => {
     stickyNoteArea.addEventListener("input", () => {
       localStorage.setItem("stickyNote", stickyNoteArea.value);
     });
-    
     // Observe theme changes to update sticky note background color
     const observer = new MutationObserver(() => {
       applyStickyNoteColor();
     });
     observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-    
     // Remove any old custom color setting (cleanup)
     localStorage.removeItem("stickyNoteColor");
   }
@@ -601,7 +599,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mood Tracker
   const selectedMood = document.getElementById("selectedMood");
   const moodPopup = document.getElementById("moodPopup");
-  
   if (selectedMood && moodPopup) {
     // Toggle popup on click
     selectedMood.addEventListener("click", () => {
@@ -616,21 +613,21 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedMood.textContent = mood;
         moodPopup.classList.add("hidden");
         // Save to localStorage
-    const moods = JSON.parse(localStorage.getItem("moods") || "[]");
-    moods.push(mood);
-    localStorage.setItem("moods", JSON.stringify(moods));
-    // Update the chart
-    renderMoodChart();
-  });
-});
-
-// Close popup if clicked outside
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".mood-tracker")) {
-    moodPopup.classList.add("hidden");
+        const moods = JSON.parse(localStorage.getItem("moods") || "[]");
+        moods.push(mood);
+        localStorage.setItem("moods", JSON.stringify(moods));
+        // Update the chart
+        renderMoodChart();
+      });
+    });
   }
-});
 
+  // Close popup if clicked outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".mood-tracker")) {
+      moodPopup.classList.add("hidden");
+    }
+  });
 
   //WEATHER + TEMP
   const apiKey = "0c397456888a4073170b65200548c39a";  
@@ -804,7 +801,6 @@ document.addEventListener("click", (e) => {
       }
     });
   });
-
 
   //search bar
   document.getElementById("searchInput").addEventListener("input", () => {
