@@ -1,3 +1,4 @@
+  // Fixed chart visibility issue
   function renderTaskChart() {
   const allTasks = JSON.parse(localStorage.getItem("tasks") || "{}");
   let completed = 0, pending = 0;
