@@ -134,18 +134,16 @@ canvas {
 /* === Hamburger Menu Button Styling === */
 .menu-btn {
   display: block;
-  font-size: 1.4rem;
-  background: var(--card-bg);
-  border: none;
+  font-size: 0.6rem;
+  background: var(--note-bg);
+  border: 1px solid black;
   cursor: pointer;
-  padding: 0px 0.4px 0px 0px;
-  color: var(--text-color);
+  padding-bottom: 0.3rem;
+  color: var(--bg-color);
   z-index: 1003;
-  position: absolute;
-  top: 0.2rem;
-  left: 273px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  transition: left 0.3s ease, transform 0.3s ease;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
 }
 /* Show menu button only on small screens */
 @media (max-width: 768px) {
@@ -189,10 +187,6 @@ canvas {
   }
 }
 /* Collapsed sidebar */
-.sidebar.collapsed + .menu-btn {
-  left: 60px;
-  transform: rotate(180deg);
-}
 .sidebar.collapsed {
   width: 0;
   padding: 0;
@@ -252,10 +246,10 @@ canvas {
 .theme-controls {
   position: absolute;
   top: 1rem;
-  right: 4.4rem;
+  right: 1rem;
   display: flex;
   gap: 0.5rem;
-  align-items: left;
+  align-items: center;
   z-index: 10;
 }
 
