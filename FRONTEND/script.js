@@ -83,9 +83,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const todayEvents = events.filter((e) => {
         return e.date === date && (selectedCategory === "all" || e.category === selectedCategory);
       });
-      dayBox.innerHTML = `<strong>${d}</strong>` + todayEvents
-        .map((e) => `<span class="event-item">${e.title || ""}</span>`)
-        .join("");
+      dayBox.innerHTML = `<strong>${d}</strong>`;
+      if (todayEvents.length > 0) {
+        const eventBtn = document.createElement("button");
+        eventBtn.className = "calendar-event-btn";
+        eventBtn.textContent = `📅 ${todayEvents.length} Event${todayEvents.length > 1 ? "s" : ""}`;
+        eventBtn.addEventListener("click", (e) => {
+          e.stopPropagation();  // Prevent triggering dayBox click
+          openDayEventsModal(date);
+        });
+        dayBox.appendChild(eventBtn);
+      }
       dayBox.addEventListener("click", () => {
         selectedDate = date;
         renderCalendar();
@@ -183,7 +191,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const details = document.createElement("div");
         details.className = "event-details hidden";
         details.innerHTML = `<p><strong>Category:</strong> ${e.category}</p>
-        <p><strong>Description:</strong> ${e.desc || "No description"}</p>`;
+        <p><strong>Description:</strong> ${e.desc || "No description"}</p>
+        <p><strong>Time:</strong> ${e.time || "Not set"}</p>`;
         wrapper.appendChild(row);
         wrapper.appendChild(details);
         content.appendChild(wrapper);

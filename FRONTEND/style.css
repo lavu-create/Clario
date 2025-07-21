@@ -129,6 +129,13 @@ canvas {
   margin-top: 10px;
 }
 
+/*============ Notification ==========*/
+.toast {
+  position: relative;
+  left: 40rem;
+  bottom: 2rem;
+}
+
 
 .sidebar-collapsed .main-content {
   margin-left: 0px; /* no sidebar */
@@ -434,7 +441,16 @@ nav li:hover {
 #searchCategory {
   padding: 0.5rem;
 }
-
+.calendar-event-btn {
+  background: transparent;
+  color: var(--text-color);
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0px 0px 0px 0px;
+  margin-top: 6px;
+  display: block;
+}
 /* ========== CALENDAR GRID ========== */
 .day-names {
   display: grid;
