@@ -500,71 +500,34 @@ document.addEventListener("DOMContentLoaded", () => {
   observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
   // Remove any old custom color setting (cleanup)
   localStorage.removeItem("stickyNoteColor");
-
-//Mood Tracker
-const selectedMood = document.getElementById("selectedMood");
-const moodPopup = document.getElementById("moodPopup");
-// Toggle popup on click
-selectedMood.addEventListener("click", () => {
-  moodPopup.classList.toggle("hidden");
-});
-// Handle mood selection
-moodPopup.querySelectorAll("button").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const mood = btn.textContent;
-    // Update visible mood
-    selectedMood.textContent = mood;
-    moodPopup.classList.add("hidden");
-    // Save to localStorage
-    const moods = JSON.parse(localStorage.getItem("moods") || "[]");
-    moods.push(mood);
-    localStorage.setItem("moods", JSON.stringify(moods));
-    // Update the chart
-    renderMoodChart();
+  
+  //Mood Tracker
+  const selectedMood = document.getElementById("selectedMood");
+  const moodPopup = document.getElementById("moodPopup");
+  // Toggle popup on click
+  selectedMood.addEventListener("click", () => {
+    moodPopup.classList.toggle("hidden");
   });
-});
-
-// Close popup if clicked outside
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".mood-tracker")) {
-    moodPopup.classList.add("hidden");
-  }
-});
-
-
-  //WEATHER + TEMP
-  const apiKey = "0c397456888a4073170b65200548c39a";  
-  const weatherBox = document.getElementById("weatherBox");
-  // Always use saved city or fallback
-  function getSavedCity() {
-    return localStorage.getItem("selectedCity") || "Patiala,IN";
-  }
-  function updateWeather(city) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=Patiala,IN&appid=${apiKey}&units=metric`)
-    .then(response => response.json())
-    .then(data => {
-      const temp = Math.round(data.main.temp);
-      const weatherMain = data.weather[0].main.toLowerCase();
-      let emoji = "❓";
-      if (weatherMain.includes("cloud")) emoji = "⛅";
-      else if (weatherMain.includes("clear")) emoji = "☀️";
-      else if (weatherMain.includes("rain")) emoji = "🌧️";
-      else if (weatherMain.includes("storm")) emoji = "⛈️";
-      else if (weatherMain.includes("snow")) emoji = "❄️";
-      else if (weatherMain.includes("fog") || weatherMain.includes("mist")) emoji = "🌫️";
-      weatherBox.innerHTML = `<span style="font-size: 1.8rem;">${emoji}</span> ${temp}°C`;
-      console.log(`✅ Weather updated for ${city}: ${emoji} ${temp}°C`);
-    })
-    .catch(error => {
-      weatherBox.textContent = "❓ --°C";
-      console.error("❌ Failed to fetch weather data:", error);
+  // Handle mood selection
+  moodPopup.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mood = btn.textContent;
+      // Update visible mood
+      selectedMood.textContent = mood;
+      moodPopup.classList.add("hidden");
+      // Save to localStorage
+      const moods = JSON.parse(localStorage.getItem("moods") || "[]");
+      moods.push(mood);
+      localStorage.setItem("moods", JSON.stringify(moods));
+      // Update the chart
+      renderMoodChart();
     });
-  }
-  // Run on page load
-  document.addEventListener("DOMContentLoaded", () => {
-    const city = getSavedCity();
-    updateWeather(city);
-    setInterval(() => updateWeather(city), 1800000);
+  });
+  // Close popup if clicked outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".mood-tracker")) {
+      moodPopup.classList.add("hidden");
+    }
   });
 
 
@@ -746,6 +709,44 @@ document.addEventListener("click", (e) => {
       resultsDiv.innerHTML = "<em>No matches found</em>";
     }
   });
+
+  //Weather
+  const apiKey = 'bae540d64dbdcc792cf2283b8d1f63fe';
+  const city = 'Patiala,IN';
+  const weatherBox = document.getElementById('weatherBox');
+  function getWeatherSummary(condition) {
+    switch (condition.toLowerCase()) {
+      case 'clear': return { emoji: '☀️', text: 'Sunny' };
+      case 'clouds': return { emoji: '☁️', text: 'Cloudy' };
+      case 'rain': return { emoji: '🌧️', text: 'Rainy' };
+      case 'drizzle': return { emoji: '🌦️', text: 'Drizzle' };
+      case 'thunderstorm': return { emoji: '⛈️', text: 'Stormy' };
+      case 'snow': return { emoji: '❄️', text: 'Snowy' };
+      case 'mist':
+      case 'fog': return { emoji: '🌫️', text: 'Foggy' };
+      default: return { emoji: '🌡️', text: 'Weather' };
+    }
+  }
+  function fetchWeather() {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+      .then(response => {
+        if (!response.ok) throw new Error("Network error");
+        return response.json();
+      })
+      .then(data => {
+        const temp = Math.round(data.main.temp);
+        const condition = data.weather[0].main;
+        const summary = getWeatherSummary(condition);
+        weatherBox.textContent = `${summary.emoji} ${temp}°C - ${summary.text}`;
+      })
+      .catch(error => {
+        console.error("Weather error:", error);
+        weatherBox.textContent = "Unable to load weather";
+      });
+  }
+  fetchWeather();
+  setInterval(fetchWeather, 600000);  // Refresh every 10 mins
+
 
   //Terms & Policies
   const openTermsBtn = document.getElementById("openTermsBtn");
