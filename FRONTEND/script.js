@@ -404,6 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
+  document.getElementById("taskFilter").addEventListener("change", function() {
+    renderTasks();  // Refresh when filter changes
+  });
 
   function renderMiniCalendar() {
     const miniCalendar = document.getElementById("miniCalendar");

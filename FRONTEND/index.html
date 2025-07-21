@@ -223,6 +223,7 @@
           </div>
           <div class="weather-box" id="weatherBox">Weather loading....</div>
         </div>
+
         <!-- <div class="resource-card">
           <div class="prod-flex">
             <h3 class="prod-head">Productivity</h3>
@@ -240,6 +241,7 @@
             <canvas id="tasksChart" class="chart"></canvas>
           </div>
         </div>
+
         <div class="task-section">
           <div class="task-header">
             <h4>📋 My Tasks</h4>
@@ -252,8 +254,8 @@
           <!-- Task Filter -->
           <select id="taskFilter">
             <option value="selected">Selected Date</option>
-            <option value="done">Done</option>
-            <option value="pending">Pending</option>
+            <option value="done">Done (Selected date)</option>
+            <option value="pending">Pending (Selected date)</option>
             <option value="all">All</option>
           </select>
           <!-- Task List + Add New -->
@@ -263,6 +265,7 @@
             <button id="addTaskBtn" class="themed-btn">Add</button>
           </div>
         </div>
+
         <!--Sticky Notes-->
         <div class="sticky-notes">
           <div class="sticky-header">
@@ -323,10 +326,5 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../DATA-VIZUALIZATION/chart.js" defer></script>
   <script src="script.js" defer></script>
-  <script>
-    renderTaskChart();
-    renderMoodChart();
-    renderEventChart();
-  </script>
 </body>
 </html>

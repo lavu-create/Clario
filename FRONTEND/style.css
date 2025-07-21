@@ -538,8 +538,7 @@ nav li:hover {
   padding-bottom: 20px;
   display: flex;
 }
-#tasks
-.task-summary-text {
+#taskStatus .task-summary-text {
   font-size: 10px;
 }
 .chart {
@@ -641,6 +640,8 @@ nav li:hover {
 .task-list {
   max-height: 120px;
   overflow-y: auto;
+  overflow-x: auto;
+  white-space: nowrap;
   margin-top: 0.5rem;
 }
 .new-task {
