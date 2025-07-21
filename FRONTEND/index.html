@@ -9,51 +9,52 @@
 </head>
 <body class="sunburst-theme">
   <div class="container">
-    <button aria-label="Toggle Sidebar" id="menuToggle" class="menu-btn"><i class="fa-solid fa-caret-right"></i></button>
-
-    <!-- Sidebar(Left)-->
-    <aside class="sidebar">
-      <div class="theme-controls">
-        <button id="resetThemeBtn" class="reset-btn"><i class="fa-solid fa-arrow-rotate-right" style="color: #ff0000;"></i></button>
-        <select id="themeSwitcher">
-          <option value="daylight">☀️Daylight</option>
-          <option value="moonlight">🌑Moonlight</option>
-          <option value="light">💙Light</option>
-          <option value="dark">🖤Dark</option>
-          <option value="zen">💚Zen</option>
-          <option value="sunburst" selected>🧡Sunburst</option>
-        </select>
-        <button id="themeToggle" class="theme-toggle">🌓</button>
-      </div>
-      <!-- Profile Button (Top right sidebar or wherever you placed it) -->
-      <div class="profile-section">
-        <img id="profilePicBtn" class="profile-pic-btn" src="assets/App logo.jpg" alt="Profile" />
-        <input id="sidebarNameInput" type="text" placeholder="Your Name" />
-      </div>
-      <!-- Profile Modal -->
-       <div id="profileModal" class="modal hidden">
-        <div class="modal-content profile-popup">
-          <span class="close-btn" id="closeProfileModal">×</span>
-          <div id="profileDisplayArea"></div>
-          <div class="profile-actions">
-            <button id="changePicBtn" class="themed-btn">Change</button>
-            <button id="defaultPicBtn" class="themed-btn">Original</button>
-          </div>
-          <input type="file" id="uploadPicInput" accept="image/*" hidden />
+    <div class="sidebar-wrapper">
+      <button aria-label="Toggle Sidebar" id="menuToggle" class="menu-btn"><i class="fa-solid fa-caret-right"></i></button>
+      <!-- Sidebar(Left)-->
+      <aside class="sidebar">
+        <div class="theme-controls">
+          <button id="resetThemeBtn" class="reset-btn"><i class="fa-solid fa-arrow-rotate-right" style="color: #ff0000;"></i></button>
+          <select id="themeSwitcher">
+            <option value="daylight">☀️Daylight</option>
+            <option value="moonlight">🌑Moonlight</option>
+            <option value="light">💙Light</option>
+            <option value="dark">🖤Dark</option>
+            <option value="zen">💚Zen</option>
+            <option value="sunburst" selected>🧡Sunburst</option>
+          </select>
+          <button id="themeToggle" class="theme-toggle">🌓</button>
         </div>
-      </div>
-      <nav>
-        <ul>
-          <li class="active">📅 Calendar</li>
-          <li>🧾 History</li>
-          <li>⚙️ Settings</li>
-        </ul>
-      </nav>
-      <div class="sidebar-buttons">
-        <button id="resetBtn" class="danger-btn">🔁 Reset All Data</button>
-        <button class="danger-btn"><i class="fa-solid fa-right-from-bracket"></i> Log out</button>
-      </div>
-    </aside>
+        <!-- Profile Button (Top right sidebar or wherever you placed it) -->
+        <div class="profile-section">
+          <img id="profilePicBtn" class="profile-pic-btn" src="assets/App logo.jpg" alt="Profile" />
+          <input id="sidebarNameInput" type="text" placeholder="Your Name" />
+        </div>
+        <!-- Profile Modal -->
+         <div id="profileModal" class="modal hidden">
+          <div class="modal-content profile-popup">
+            <span class="close-btn" id="closeProfileModal">×</span>
+            <div id="profileDisplayArea"></div>
+            <div class="profile-actions">
+              <button id="changePicBtn" class="themed-btn">Change</button>
+              <button id="defaultPicBtn" class="themed-btn">Original</button>
+            </div>
+            <input type="file" id="uploadPicInput" accept="image/*" hidden />
+          </div>
+        </div>
+        <nav>
+          <ul>
+            <li class="active">📅 Calendar</li>
+            <li>🧾 History</li>
+            <li>⚙️ Settings</li>
+          </ul>
+        </nav>
+        <div class="sidebar-buttons">
+          <button id="resetBtn" class="danger-btn">🔁 Reset All Data</button>
+          <button class="danger-btn"><i class="fa-solid fa-right-from-bracket"></i> Log out</button>
+        </div>
+      </aside>
+    </div>
 
 
 

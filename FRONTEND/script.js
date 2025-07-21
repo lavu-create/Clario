@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const menuToggle = document.getElementById("menuToggle");
+  const menuBtn = document.getElementById('menuToggle');
   const sidebar = document.querySelector(".sidebar");
+  const sidebarWrapper = document.querySelector('.sidebar-wrapper');
   const container = document.querySelector(".container");
-  menuToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("collapsed");
+  menuBtn.addEventListener('click', () => {
+    sidebarWrapper.classList.toggle('collapsed');
     container.classList.toggle("sidebar-collapsed");
+    sidebar.classList.toggle("collapsed");
   });
 
   const themeToggle = document.getElementById("themeToggle");

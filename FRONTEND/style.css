@@ -115,7 +115,7 @@ canvas {
 
 
 .sidebar-collapsed .main-content {
-  margin-left: 0; /* no sidebar */
+  margin-left: 0px; /* no sidebar */
 }
 /* ========== SIDEBAR ========== */
 .sidebar {
@@ -126,14 +126,22 @@ canvas {
   display: flex;
   flex-direction: column;
   border-right: 1px solid #ddd;
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 0rem;
   justify-content: space-between;
   overflow-y: auto;
-  position: relative
+  position: relative;
+}
+.sidebar-wrapper {
+  display: flex;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+.sidebar-wrapper.collapsed {
+  transform: translateX(-240px); /* sidebar width */
 }
 /* === Hamburger Menu Button Styling === */
 .menu-btn {
-  display: block;
+  display: flex;
   font-size: 1.6rem;
   background: var(--card-bg);
   border: none;
@@ -141,9 +149,10 @@ canvas {
   padding: 0px 0px 0px 0px;
   color: var(--text-color);
   z-index: 1003;
-  position: absolute;
-  top: 0.1px;
-  left: 17.1rem;
+  position: relative;
+  top: 2px;
+  left: 16.89rem;
+  height: 10px;
 }
 /* Show menu button only on small screens */
 @media (max-width: 768px) {
@@ -242,7 +251,7 @@ canvas {
 .theme-controls {
   position: absolute;
   top: 1rem;
-  right: 5.3rem;
+  right: 4.9rem;
   display: flex;
   align-items: center;
   z-index: 10;
