@@ -299,15 +299,50 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => toast.classList.add("hidden"), 2000);
   }
 
+
+  //Setting section
+  //Clock
   function updateClock() {
     const clock = document.getElementById("liveClock");
+    const savedFormat = localStorage.getItem("timeFormat") || "24";
     setInterval(() => {
       const now = new Date();
-      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false});
-      clock.textContent = timeStr;
+      let options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      if (savedFormat === "12") options.hour12 = true;
+      else options.hour12 = false;
+      clock.textContent = now.toLocaleTimeString([], options);
     }, 1000);
   }
   updateClock();
+  const timeFormatSelect = document.getElementById("timeFormat");
+  timeFormatSelect.value = localStorage.getItem("timeFormat") || "24";
+  timeFormatSelect.addEventListener("change", () => {
+    localStorage.setItem("timeFormat", timeFormatSelect.value);
+    location.reload();  // Reload to apply immediately
+  });
+  //Reminder
+  function checkEventReminders() {
+    const events = JSON.parse(localStorage.getItem("events") || "[]");
+    const reminderInput = document.querySelector(".reminder-input");
+    const reminderUnit = document.getElementById("eventReminder").value;
+    const reminderValue = parseInt(reminderInput.value) || 0;
+    if (reminderValue === 0) return;  // Skip if reminder time is 0
+    const now = new Date();
+    events.forEach(event => {
+      const eventTime = new Date(event.date);
+      const diffMs = eventTime - now;
+      let diffInUnit;
+      if (reminderUnit === "min") diffInUnit = diffMs / (60 * 1000);
+      else if (reminderUnit === "sec") diffInUnit = diffMs / 1000;
+      else if (reminderUnit === "hrs") diffInUnit = diffMs / (60 * 60 * 1000);
+      if (diffInUnit > 0 && diffInUnit <= reminderValue) {
+        showNotification(`⏰ Reminder: ${event.title} at ${event.date}`);
+      }
+    });
+  }
+  // Check every 60 seconds
+  setInterval(checkEventReminders, 60000);
+
 
   const taskList = document.getElementById("taskList");
   const taskInput = document.getElementById("newTaskInput");
@@ -646,28 +681,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const calendarSection = document.getElementById("calendarSection");
   const historySection = document.getElementById("historySection");
   const settingsSection = document.getElementById("settingsSection");
-  // Default show calendar
-  calendarSection.style.display = "block";
-  historySection.style.display = "none";
-  settingsSection.style.display = "none";
+  function showSection(sectionName) {
+    calendarSection.style.display = "none";
+    historySection.style.display = "none";
+    settingsSection.style.display = "none";
+    if (sectionName === "calendar") calendarSection.style.display = "block";
+    if (sectionName === "history") historySection.style.display = "block";
+    if (sectionName === "settings") settingsSection.style.display = "block";
+    // Save selection
+    localStorage.setItem("selectedSection", sectionName);
+  }
+  // On page load
+  const savedSection = localStorage.getItem("selectedSection") || "calendar";
+  showSection(savedSection);
+  // Set active nav item on load
+  navItems.forEach(item => item.classList.remove("active"));
+  if (savedSection === "calendar") navItems[0].classList.add("active");
+  if (savedSection === "history") navItems[1].classList.add("active");
+  if (savedSection === "settings") navItems[2].classList.add("active");
+  // On click
   navItems.forEach((item, index) => {
     item.addEventListener("click", () => {
       navItems.forEach(el => el.classList.remove("active"));
       item.classList.add("active");
-      // Toggle views based on index
-      if (index === 0) {
-        calendarSection.style.display = "block";
-        historySection.style.display = "none";
-        settingsSection.style.display = "none";
-      } else if (index === 1) {
-        calendarSection.style.display = "none";
-        historySection.style.display = "block";
-        settingsSection.style.display = "none";
-      } else if (index === 2) {
-        calendarSection.style.display = "none";
-        historySection.style.display = "none";
-        settingsSection.style.display = "block";
-      }
+      if (index === 0) showSection("calendar");
+      if (index === 1) showSection("history");
+      if (index === 2) showSection("settings");
     });
   });
 
@@ -790,4 +829,5 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof renderTaskChart === "function") renderTaskChart();
   if (typeof renderEventChart === "function") renderEventChart();
   if (typeof renderMoodChart === "function") renderMoodChart();
+  if (typeof renderMoodChart === "function") renderMoodEventChart();
 });

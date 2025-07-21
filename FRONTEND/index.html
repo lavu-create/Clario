@@ -112,7 +112,7 @@
         <h2>📜 History</h2>
         <p>Here you can view past events and mood logs.</p>
         <hr>
-        <div>
+        <div class="history-scroll-wrapper">
           <div class="history">
             <h3 id="event-his" class="his-head">📅 Events</h3>
             <div class="chart">
@@ -124,6 +124,13 @@
             <h3 id="mood-his" class="his-head">📊 Mood Log</h3>
             <div class="chart">
               <canvas id="moodChart"></canvas>
+            </div>
+          </div>
+          <hr>
+          <div class="history">
+            <h3 id="mood-his" class="his-head">📊 Mood vs Event Correlation</h3>
+            <div class="chart">
+              <canvas id="moodEventChart"></canvas>
             </div>
           </div>
           <hr>
@@ -159,7 +166,7 @@
                 <option value="12">12-hour (AM/PM)</option>
               </select>
             </label>
-            <label>⏰ Event Reminder:
+            <label>⏰ Event Reminder before:
               <input type="number" value="4" class="reminder-input"/>
               <select id="eventReminder" class="sett-btn">
                 <option>min</option>
