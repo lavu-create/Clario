@@ -621,10 +621,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update visible mood
       selectedMood.textContent = mood;
       moodPopup.classList.add("hidden");
-      // Save to localStorage
-      const moods = JSON.parse(localStorage.getItem("moods") || "[]");
-      moods.push(mood);
-      localStorage.setItem("moods", JSON.stringify(moods));
+      // Save mood with timestamp
+      const moods = JSON.parse(localStorage.getItem("moodLog") || "[]");
+      moods.push({ mood, date: new Date().toISOString() });  // Save mood and date
+      localStorage.setItem("moodLog", JSON.stringify(moods));
       // Update the chart
       renderMoodChart();
     });

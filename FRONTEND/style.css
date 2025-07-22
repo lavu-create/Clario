@@ -12,6 +12,7 @@
   --danger-color: #bb1000;
   --hover: white;
   --miniCal-bg: white;
+  --main-font: 'Segoe UI', sans-serif;
 }
 
 html, body {
@@ -19,7 +20,12 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* Prevent body scroll */
-  font-family: sans-serif;
+}
+
+/* ========== Universal Button Hover Effect ========== */
+.theme-toggle:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
 }
 
 /* ========== BODY & LAYOUT ========== */
@@ -27,10 +33,9 @@ body {
   display: flex;
   height: 100vh;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: var(--main-font);
   background-color: var(--bg-color);
   color: var(--text-color);
-  overflow: hidden;
   flex-direction: column;
 }
 .container {
@@ -39,7 +44,6 @@ body {
   flex-direction: row;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
   gap: 0;
   position: relative;
 }
@@ -85,10 +89,6 @@ section#historySection.hidden, section#settingsSection.hidden {
   margin-left: 10px;
 }
 #reminderToast {
-  position: fixed;
-  bottom: 20px;
-  left: 650px;
-  transform: translateX(-50%);
   background: transparent;
   color: #fff;
   padding: 12px 20px;
@@ -96,6 +96,13 @@ section#historySection.hidden, section#settingsSection.hidden {
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: 9999;
+}
+#reminderToast,
+.toast {
+  position: absolute;
+  left: 46%;
+  transform: translateX(-46%);
+  bottom: 20px;
 }
 #reminderToast.show {
   opacity: 1;
@@ -124,7 +131,7 @@ section#historySection.hidden, section#settingsSection.hidden {
 }
 /* ========== History ========== */
 #historySection {
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -136,7 +143,7 @@ section#historySection.hidden, section#settingsSection.hidden {
   gap: 10px;
 }
 .history-scroll-wrapper > div {
-  min-width: 300px; /* or your card/chart width */
+  min-width: 300px;
   flex-shrink: 0;
 }
 canvas {
@@ -152,14 +159,6 @@ canvas {
 #export-his, #clearHistoryBtn {
   margin-top: 10px;
 }
-
-/*============ Notification ==========*/
-.toast{
-  position: fixed;
-  bottom: 20px;
-  left: 570px;
-}
-
 
 .sidebar-collapsed .main-content {
   margin-left: 0px; /* no sidebar */
@@ -206,7 +205,6 @@ canvas {
   .menu-btn {
     display: block;
   }
-  .sidebar,
   .sidebar {
     position: relative;
     left: -100%;
@@ -274,9 +272,6 @@ canvas {
   cursor: pointer;
   font-size: 1.2rem;
   transition: transform 0.3s;
-}
-.theme-toggle:hover {
-  transform: scale(1.2);
 }
 #themeSwitcher {
   padding: 4px 6px;
@@ -396,6 +391,7 @@ nav li:hover {
   padding: 5px 8px 8px 4px;
 }
 
+/* ========== CALENDAR MAIN ========== */
 .main-content {
   display: flex;
   flex: 1;
@@ -404,7 +400,9 @@ nav li:hover {
   margin-right: 370px;
   transition: margin 0.3s ease;
 }
-/* ========== CALENDAR MAIN ========== */
+#calendarSection {
+  position: relative;
+}
 .main-calendar {
   flex: 2;
   padding: 1rem;

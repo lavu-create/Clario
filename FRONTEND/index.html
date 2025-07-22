@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Clario — Your smart calendar with reminders, mood tracking, task management, and live weather — all in one app.">
+  <meta property="og:title" content="Clario — Smart Calendar App">
+  <meta property="og:description" content="Plan, track mood, manage tasks, and get weather updates — all with Clario.">
+  <meta property="og:image" content="assets/website logo.jpg">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://clarioapp.com/">
   <title>Clario</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -58,14 +65,14 @@
 
 
 
-    <!--Main(centre) + Right Pannel(right)-->
+    <!-- Main Section (Center) and Right Panel -->
     <div class="main-content">
       <section id="calendarSection">
         <!-- Main Calendar -->
         <main class="main-calendar">
           <div class="calendar-header with-logo">
             <div class="calendar-left">
-              <img src="assets/website logo.jpg" alt="Logo" class="calendar-logo" />
+              <img src="assets/website logo.jpg" alt="Clario Logo" class="calendar-logo" />
             </div>
             <div class="calendar-nav">
               <button id="prevMonth">❮</button>
@@ -73,14 +80,15 @@
               <button id="nextMonth">❯</button>
             </div>
             <div class="calendar-actions">
-              <button id="todayBtn" class="themed-btn">📆 Today</button>
+              <button id="todayBtn" class="themed-btn" aria-label="Go to Today">📆 Today</button>
               <button id="addEventBtn" class="themed-btn">+ New Event</button>
               <button id="printBtn" class="themed-btn">🖨️ Print</button>
             </div>
           </div>
 
           <div class="search-events">
-            <input type="text" id="searchInput" placeholder="🔍 Search here..." />
+            <input type="text" id="searchInput" placeholder="Search here..." />
+            <button id="searchBtn" class="search-btn" aria-label="Search">🔍</button>
             <div id="searchResults" class="search-results"></div>
             <select id="eventCategoryFilter">
               <option value="all">All</option>
@@ -128,7 +136,7 @@
           </div>
           <hr>
           <div class="history">
-            <h3 id="mood-his" class="his-head">📊 Mood vs Event Correlation</h3>
+            <h3 id="mood-his-correlation" class="his-head">📊 Mood vs Event Correlation</h3>
             <div class="chart">
               <canvas id="moodEventChart"></canvas>
             </div>
@@ -236,12 +244,10 @@
           <h4 class="mood">Today's Mood<span id="selectedMood" class="mood-display">😊</span></h4>
           <div id="moodPopup" class="mood-popup hidden">
             <!-- Extensive mood emoji set -->
-            <button>😃</button><button>😊</button><button>😍</button><button>🤩</button>
-            <button>😐</button><button>😕</button><button>😢</button><button>😭</button>
-            <button>😡</button><button>😴</button><button>🤯</button><button>😎</button>
-            <button>😇</button><button>😱</button><button>🤔</button><button>🥳</button>
-            <button>💀</button><button>🤒</button><button>🥺</button><button>😶</button>
-            <button>😬</button><button>🙄</button><button>😲</button>
+            <button aria-label="Very Happy">😃</button> <button aria-label="Happy">😊</button> <button aria-label="In Love">😍</button> <button aria-label="Excited">🤩</button> <button aria-label="Hugging">🤗</button> <button aria-label="Blessed">😇</button>
+            <button aria-label="Cool">😎</button> <button aria-label="Thinking">🤔</button> <button aria-label="Celebrating">🥳</button> <button aria-label="Speechless">😶</button> <button aria-label="Neutral">😐</button> <button aria-label="Confused">😕</button>
+            <button aria-label="Awkward">😬</button> <button aria-label="Annoyed">🙄</button> <button aria-label="Overwhelmed">🤯</button> <button aria-label="Surprised">😲</button> <button aria-label="Shocked">😱</button> <button aria-label="Angry">😡</button>
+            <button aria-label="Sleepy">😴</button> <button aria-label="Sick">🤒</button> <button aria-label="Begging">🥺</button> <button aria-label="Sad">😢</button> <button aria-label="Crying">😭</button> <button aria-label="Dead Inside">💀</button>
           </div>
           <div class="weather-box" id="weatherBox">Weather loading....</div>
         </div>
@@ -304,7 +310,7 @@
   <!-- Event Modal -->
   <div id="eventModal" class="modal hidden">
     <div class="modal-content">
-      <span class="close-btn">&times;</span>
+      <span class="close-btn" aria-label="Close">&times;</span>
       <h3>Create New Event</h3>
       <input type="hidden" id="eventIndex" />
       <input type="text" id="eventTitle" placeholder="Event Title" />
@@ -335,13 +341,11 @@
   </div>
   <div id="legalModal" class="custom-modal hidden">
     <div class="modal-content">
-      <span id="closeLegalModal" class="close-btn">✖</span>
+      <span id="closeLegalModal" class="close-btn" aria-label="Close">✖</span>
       <h2 id="legalTitle">Title</h2>
       <div id="legalContent" class="modal-text scrollable"></div>
     </div>
   </div>
-
-
 
   <!-- Notification Toast -->
   <div id="notification" class="toast hidden">Saved!</div>
