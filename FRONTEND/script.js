@@ -332,10 +332,9 @@ document.addEventListener("DOMContentLoaded", () => {
   //Reminder
   function checkEventReminders() {
     const events = JSON.parse(localStorage.getItem("events") || "[]");
-    const reminderInput = document.querySelector(".reminder-input");
-    const reminderUnit = document.getElementById("eventReminder").value;
-    const reminderValue = parseInt(reminderInput.value) || 0;
-    if (reminderValue === 0) return;  // Skip if reminder time is 0
+    const reminderValue = parseInt(localStorage.getItem("reminderValue")) || 0;
+    const reminderUnit = localStorage.getItem("reminderUnit") || "min";
+    if (reminderValue === 0) return;
     const now = new Date();
     events.forEach(event => {
       const eventTime = new Date(event.date);
@@ -351,6 +350,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // Check every 60 seconds
   setInterval(checkEventReminders, 60000);
+  // Load saved reminder settings on page load
+  const reminderInput = document.querySelector(".reminder-input");
+  const reminderUnitSelect = document.getElementById("eventReminder");
+  reminderInput.value = localStorage.getItem("reminderValue") || 4;
+  reminderUnitSelect.value = localStorage.getItem("reminderUnit") || "min";
+  // Save Settings Button
+  document.getElementById("settSave").addEventListener("click", () => {
+    localStorage.setItem("reminderValue", reminderInput.value);
+    localStorage.setItem("reminderUnit", reminderUnitSelect.value);
+    showNotification("✅ Settings Saved!");
+  });
 
 
   const taskList = document.getElementById("taskList");

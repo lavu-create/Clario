@@ -130,10 +130,10 @@ canvas {
 }
 
 /*============ Notification ==========*/
-.toast {
-  position: relative;
-  left: 40rem;
-  bottom: 2rem;
+.toast{
+  position: fixed;
+  bottom: 20px;
+  left: 570px;
 }
 
 
@@ -810,12 +810,6 @@ nav li:hover {
 }
 .sticky-head {
   margin: 10px 0px 0px 0px;
-}
-
-
-/* ========== NOTIFICATION TOGGLE ========== */
-.notification-toggle {
-  text-align: center;
 }
 
 /* ========== MODAL ========== */
