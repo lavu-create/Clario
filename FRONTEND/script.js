@@ -607,6 +607,31 @@ document.addEventListener("DOMContentLoaded", () => {
   // Remove any old custom color setting (cleanup)
   localStorage.removeItem("stickyNoteColor");
   
+
+
+  //Mood
+  function renderMoodChart() {
+    const ctx = document.getElementById('moodChart').getContext('2d');
+    const moodData = JSON.parse(localStorage.getItem("moodLog") || "[]");
+    const moodCount = {};
+    moodData.forEach(entry => {
+      moodCount[entry.mood] = (moodCount[entry.mood] || 0) + 1;
+    });
+    const labels = Object.keys(moodCount);
+    const data = Object.values(moodCount);
+    if (window.moodChartInstance) window.moodChartInstance.destroy();  // Reset old chart
+    window.moodChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Mood Count',
+          data,
+          backgroundColor: 'rgba(75, 192, 192, 0.6)'
+        }]
+      }
+    });
+  }
   //Mood Tracker
   const selectedMood = document.getElementById("selectedMood");
   const moodPopup = document.getElementById("moodPopup");
@@ -635,6 +660,13 @@ document.addEventListener("DOMContentLoaded", () => {
       moodPopup.classList.add("hidden");
     }
   });
+  // On page load, show last selected mood
+  const savedMoods = JSON.parse(localStorage.getItem("moodLog") || "[]");
+  if (savedMoods.length > 0) {
+    const lastMood = savedMoods[savedMoods.length - 1].mood;
+    selectedMood.textContent = lastMood;
+  }
+
 
 
   //Profile PIC
