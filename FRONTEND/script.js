@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+  document.body.addEventListener("click", function unlockAudio() {
+    const audio = document.getElementById("reminder-audio");
+    if (audio) audio.play().catch(() => {});
+    document.body.removeEventListener("click", unlockAudio);  // Only once
+  });
+
   const menuBtn = document.getElementById('menuToggle');
   const sidebar = document.querySelector(".sidebar");
   const sidebarWrapper = document.querySelector('.sidebar-wrapper');
@@ -268,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     localStorage.setItem("events", JSON.stringify(events));
     eventModal.classList.add("hidden");
-    showNotification("Saved!");
+    showSaveNotification("Saved!");
     renderCalendar();
     renderEventChart();
   });
@@ -301,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  function showNotification(text) {
+  function showSaveNotification(text) {
     const toast = document.getElementById("notification");
     toast.textContent = text;
     toast.classList.remove("hidden");
@@ -310,57 +316,100 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   //Setting section
-  //Clock
+  // ---------------- Clock ------------------
   function updateClock() {
     const clock = document.getElementById("liveClock");
-    const savedFormat = localStorage.getItem("timeFormat") || "24";
+    let savedFormat = localStorage.getItem("timeFormat") || "24";
     setInterval(() => {
       const now = new Date();
       let options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-      if (savedFormat === "12") options.hour12 = true;
-      else options.hour12 = false;
-      clock.textContent = now.toLocaleTimeString([], options);
+      options.hour12 = savedFormat === "12";
+      clock.childNodes[0].nodeValue = now.toLocaleTimeString([], options);
     }, 1000);
+    // Live listen to format change without reload
+    document.getElementById("timeFormat").addEventListener("change", function() {
+      savedFormat = this.value;
+      localStorage.setItem("timeFormat", savedFormat);
+      showToastNotification("✅ Time Format Updated!");
+    });
   }
   updateClock();
+  // ---------------- Settings Save ------------------
   const timeFormatSelect = document.getElementById("timeFormat");
+  const reminderInput = document.querySelector(".reminder-input");
+  const reminderUnitSelect = document.getElementById("eventReminder");
+  const reminderSoundSelect = document.getElementById("reminderSound");
+  // Load saved values
   timeFormatSelect.value = localStorage.getItem("timeFormat") || "24";
-  timeFormatSelect.addEventListener("change", () => {
-    localStorage.setItem("timeFormat", timeFormatSelect.value);
-    location.reload();  // Reload to apply immediately
+  reminderInput.value = localStorage.getItem("reminderValue") || 4;
+  reminderUnitSelect.value = localStorage.getItem("reminderUnit") || "min";
+  reminderSoundSelect.value = localStorage.getItem("reminderSound") || "default";
+  document.getElementById("settSave").addEventListener("click", () => {
+    localStorage.setItem("reminderValue", reminderInput.value);
+    localStorage.setItem("reminderUnit", reminderUnitSelect.value);
+    localStorage.setItem("reminderSound", reminderSoundSelect.value);
+    showToastNotification("✅ Settings Saved!");
+
   });
-  //Reminder
+  // ---------------- Reminder Check ------------------
   function checkEventReminders() {
-    const events = JSON.parse(localStorage.getItem("events") || "[]");
+    let events = JSON.parse(localStorage.getItem("events") || "[]");
     const reminderValue = parseInt(localStorage.getItem("reminderValue")) || 0;
     const reminderUnit = localStorage.getItem("reminderUnit") || "min";
     if (reminderValue === 0) return;
     const now = new Date();
-    events.forEach(event => {
+    events.forEach((event) => {
+      if (event.notified) return;
       const eventTime = new Date(event.date);
       const diffMs = eventTime - now;
-      let diffInUnit;
+      let diffInUnit = 0;
       if (reminderUnit === "min") diffInUnit = diffMs / (60 * 1000);
       else if (reminderUnit === "sec") diffInUnit = diffMs / 1000;
       else if (reminderUnit === "hrs") diffInUnit = diffMs / (60 * 60 * 1000);
       if (diffInUnit > 0 && diffInUnit <= reminderValue) {
         showNotification(`⏰ Reminder: ${event.title} at ${event.date}`);
+        event.notified = true;
+        localStorage.setItem("events", JSON.stringify(events));
       }
     });
   }
-  // Check every 60 seconds
-  setInterval(checkEventReminders, 60000);
-  // Load saved reminder settings on page load
-  const reminderInput = document.querySelector(".reminder-input");
-  const reminderUnitSelect = document.getElementById("eventReminder");
-  reminderInput.value = localStorage.getItem("reminderValue") || 4;
-  reminderUnitSelect.value = localStorage.getItem("reminderUnit") || "min";
-  // Save Settings Button
-  document.getElementById("settSave").addEventListener("click", () => {
-    localStorage.setItem("reminderValue", reminderInput.value);
-    localStorage.setItem("reminderUnit", reminderUnitSelect.value);
-    showNotification("✅ Settings Saved!");
+  setInterval(checkEventReminders, 1000);  // Check every second for better accuracy
+  // ---------------- Reminder Bell ------------------
+  document.getElementById("reminderBell").addEventListener("click", () => {
+    const audio = document.getElementById("reminder-audio");
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+    document.getElementById("reminderBell").style.display = "none";
   });
+  function showToastNotification(message) {
+    const toast = document.getElementById('reminderToast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
+  function showNotification(message) {
+    const toast = document.getElementById("reminderToast");
+    const bell = document.getElementById("reminderBell");
+    toast.textContent = message;
+    toast.classList.add("show");
+    bell.style.display = "inline";
+    playReminderSound();
+    setTimeout(() => toast.classList.remove("show"), 4000);
+  }
+  function playReminderSound() {
+    const selectedSound = localStorage.getItem("reminderSound") || "default";
+    let audioSrc = "";
+    if (selectedSound === "default") audioSrc = "https://notificationsounds.com/storage/sounds/file-sounds-1145-pristine.mp3";
+    else if (selectedSound === "chime") audioSrc = "https://notificationsounds.com/storage/sounds/file-sounds-1144-glass.mp3";
+    else if (selectedSound === "alarm") audioSrc = "https://notificationsounds.com/storage/sounds/file-sounds-1131-tick-tock.mp3";
+    const audio = document.getElementById("reminder-audio");
+    audio.src = audioSrc;
+    audio.play();
+  }
 
 
   const taskList = document.getElementById("taskList");
@@ -505,7 +554,6 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleMiniCal.textContent = isMiniCalCollapsed ? "▶" : "▼";
   });
   selectedTaskDate = new Date().toISOString().split("T")[0];
-  renderTasks();
   function dragStart(e) {
     e.dataTransfer.setData("text/plain", e.target.dataset.index);
   }
@@ -515,6 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function drop(e) {
     const from = e.dataTransfer.getData("text/plain");
     const to = e.target.dataset.index;
+    if (from === undefined || to === undefined) return;
     const allTasks = JSON.parse(localStorage.getItem("tasks") || "{}");
     const tasks = allTasks[selectedTaskDate] || [];
     const [moved] = tasks.splice(from, 1);
@@ -729,7 +778,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-
   //search bar
   document.getElementById("searchInput").addEventListener("input", () => {
     const query = document.getElementById("searchInput").value.toLowerCase();
@@ -765,7 +813,12 @@ document.addEventListener("DOMContentLoaded", () => {
       matched.push(`<div><strong>Sticky Note:</strong> ${note}</div>`);
     }
     if (matched.length > 0) {
-      resultsDiv.innerHTML = matched.join("<hr>");  
+      resultsDiv.innerHTML = "";
+      matched.forEach(result => {
+      const div = document.createElement('div');
+      div.textContent = result;
+      resultsDiv.appendChild(div);
+    });
     } else {
       resultsDiv.innerHTML = "<em>No matches found</em>";
     }

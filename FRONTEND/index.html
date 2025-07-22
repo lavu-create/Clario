@@ -146,6 +146,7 @@
         <h2>⚙️ Settings</h2>
         <p>Personalize your experience — update your account info, adjust security settings, set your location, back up your data, and more.</p>
         <hr>
+
         <div id="accountSettings" class="settings">
           <h3 class="settings-head">👤 Account Settings</h3>
           <div class="settings-body">
@@ -157,6 +158,7 @@
           </div>
         </div>
         <hr>
+
         <div id="timeSettings" class="settings">
           <h3 class="settings-head">🕒 Clock Settings</h3>
           <div class="settings-body">
@@ -174,9 +176,17 @@
                 <option>hrs</option>
               </select>
             </label>
+            <label>
+              <select id="reminderSound" class="sett-btn">
+                <option value="default">Default Beep</option>
+                <option value="chime">Chime</option>
+                <option value="alarm">Alarm</option>
+              </select>
+            </label>
           </div>
         </div>
         <hr>
+
         <div id="location-settings" class="settings">
           <h3 class="settings-head">🌍 Location</h3>
           <div class="settings-body">
@@ -204,9 +214,11 @@
           </div>
         </div>
         <hr>
+
         <div class="set-his">
           <button id="settSave" class="color-sett-btn">Save</button>
         </div>
+
         <div class="terms">
           <button id="openTermsBtn" class="term-btn">📄 Terms & Conditions</button>
           <button id="openPrivacyBtn" class="term-btn">🔒 Privacy Policy</button>
@@ -216,7 +228,10 @@
 
       <!-- Right Panel -->
       <aside class="right-panel">
-        <div id="liveClock" class="theme-border">00:00:00</div>
+        <div id="liveClock" class="theme-border">00:00:00
+          <span id="reminderBell" class="reminder">⏰</span>
+        </div>
+
         <div class="mood-tracker">
           <h4 class="mood">Today's Mood<span id="selectedMood" class="mood-display">😊</span></h4>
           <div id="moodPopup" class="mood-popup hidden">
@@ -330,6 +345,11 @@
 
   <!-- Notification Toast -->
   <div id="notification" class="toast hidden">Saved!</div>
+  <!-- Toast Notification -->
+  <div id="reminderToast"></div>'
+  
+  <audio id="reminder-audio"></audio>
+
   <!-- Confetti Canvas -->
   <canvas id="confettiCanvas" class="hidden"></canvas>
 
