@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeSwitcher = document.getElementById("themeSwitcher");
   const defaultTheme = "sunburst-theme";
   const savedTheme = localStorage.getItem("selectedTheme");
+  function updateStickyNoteOnThemeChange() {
+    applyStickyNoteColor();
+  }
   if (savedTheme) {
     document.body.className = savedTheme;
     themeSwitcher.value = savedTheme.replace("-theme", "");
@@ -894,27 +897,36 @@ document.addEventListener("DOMContentLoaded", () => {
       default: return { emoji: '🌡️', text: 'Weather' };
     }
   }
-  function fetchWeather() {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-      .then(response => {
-        if (!response.ok) throw new Error("Network error");
-        return response.json();
-      })
-      .then(data => {
-        const temp = Math.round(data.main.temp);
-        const condition = data.weather[0].main;
-        const summary = getWeatherSummary(condition);
-        weatherBox.textContent = `${summary.emoji} ${temp}°C - ${summary.text}`;
-      })
-      .catch(error => {
-        console.error("Weather error:", error);
-        weatherBox.textContent = "Unable to load weather";
-      });
+  function fetchWeather(city) {
+    // If no city is passed, get from localStorage or default to "Patiala"
+    if (!city) {
+      const storedLocation = JSON.parse(localStorage.getItem("userLocation"));
+      city = storedLocation?.city || "Patiala";
+    }
+    const apiKey = "bae540d64dbdcc792cf2283b8d1f63fe";
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.main) {
+        const weatherEl = document.getElementById("weather");
+        const temp = data.main.temp;
+        const desc = data.weather[0].description;
+        const humidity = data.main.humidity;
+        weatherEl.textContent = `🌡 ${temp}°C | ${desc} | 💧 ${humidity}%`;
+      } else {
+        document.getElementById("weather").textContent = "Weather unavailable";
+      }
+    })
+    .catch(() => {
+      document.getElementById("weather").textContent = "Weather fetch error";
+    });
   }
   fetchWeather();
   setInterval(fetchWeather, 600000);  // Refresh every 10 mins
 
 
+  //Location
   const countryLocation = document.getElementById("countryLocation");
   const stateLocation = document.getElementById("stateLocation");
   const cityLocation = document.getElementById("cityLocation");
@@ -967,7 +979,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // ------------------- On State Change -------------------
   stateLocation.addEventListener("change", () => {
-    cityLocation.innerHTML = `<option value="">Select City</option>`;
+    cityLocation.innerHTML = `<option value="Default">Default (Use system location)</option>`;
     const country = countryLocation.value;
     const state = stateLocation.value;
     if (!state) return;
