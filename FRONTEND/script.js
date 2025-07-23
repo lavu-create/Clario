@@ -1,10 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.body.addEventListener("click", function unlockAudio() {
-    const audio = document.getElementById("reminder-audio");
-    if (audio) audio.play().catch(() => {});
-    document.body.removeEventListener("click", unlockAudio);  // Only once
-  });
-
   const menuBtn = document.getElementById('menuToggle');
   const sidebar = document.querySelector(".sidebar");
   const sidebarWrapper = document.querySelector('.sidebar-wrapper');
@@ -244,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const eventTitle = document.getElementById("eventTitle");
   const eventDesc = document.getElementById("eventDesc");
   const eventDate = document.getElementById("eventDate");
+  const eventTime = document.getElementById("eventTime");
   const eventCategory = document.getElementById("eventCategory");
   const eventIndexInput = document.getElementById("eventIndex");
   addEventBtn.addEventListener("click", () => {
@@ -264,7 +259,9 @@ document.addEventListener("DOMContentLoaded", () => {
       title: eventTitle.value.trim(),
       desc: eventDesc.value.trim(),
       date: eventDate.value,
+      time: eventTime.value,
       category: eventCategory.value,
+      notified: false
     };
     const index = eventIndexInput.value;
     if (index !== "") {
@@ -315,7 +312,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  //Setting section
   // ---------------- Clock ------------------
   function updateClock() {
     const clock = document.getElementById("liveClock");
@@ -349,7 +345,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("reminderUnit", reminderUnitSelect.value);
     localStorage.setItem("reminderSound", reminderSoundSelect.value);
     showToastNotification("✅ Settings Saved!");
-
   });
   // ---------------- Reminder Check ------------------
   function checkEventReminders() {
@@ -360,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = new Date();
     events.forEach((event) => {
       if (event.notified) return;
-      const eventTime = new Date(event.date);
+      const eventTime = new Date(`${event.date}T${event.time || "00:00"}`);
       const diffMs = eventTime - now;
       let diffInUnit = 0;
       if (reminderUnit === "min") diffInUnit = diffMs / (60 * 1000);
@@ -376,13 +371,17 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(checkEventReminders, 1000);  // Check every second for better accuracy
   // ---------------- Reminder Bell ------------------
   document.getElementById("reminderBell").addEventListener("click", () => {
+    stopReminderSound();
+    document.getElementById("reminderBell").style.display = "none";
+    document.getElementById("reminderToast").classList.remove("show");
+  });
+  function stopReminderSound() {
     const audio = document.getElementById("reminder-audio");
     if (audio) {
       audio.pause();
       audio.currentTime = 0;
     }
-    document.getElementById("reminderBell").style.display = "none";
-  });
+  }
   function showToastNotification(message) {
     const toast = document.getElementById('reminderToast');
     toast.textContent = message;
@@ -398,18 +397,35 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.classList.add("show");
     bell.style.display = "inline";
     playReminderSound();
-    setTimeout(() => toast.classList.remove("show"), 4000);
+    // Stop sound when clicking toast
+    toast.onclick = () => {
+      stopReminderSound();
+      toast.classList.remove("show");
+      bell.style.display = "none";
+    };
   }
   function playReminderSound() {
     const selectedSound = localStorage.getItem("reminderSound") || "default";
-    let audioSrc = "";
-    if (selectedSound === "default") audioSrc = "https://notificationsounds.com/storage/sounds/file-sounds-1145-pristine.mp3";
-    else if (selectedSound === "chime") audioSrc = "https://notificationsounds.com/storage/sounds/file-sounds-1144-glass.mp3";
-    else if (selectedSound === "alarm") audioSrc = "https://notificationsounds.com/storage/sounds/file-sounds-1131-tick-tock.mp3";
     const audio = document.getElementById("reminder-audio");
-    audio.src = audioSrc;
-    audio.play();
+    let audioSrc = "";
+    if (selectedSound === "default")
+      audioSrc = "./assets/alarm-default-beep.wav";
+    else if (selectedSound === "chime")
+      audioSrc = "./assets/alarm-chime.mp3";
+    else if (selectedSound === "alarm")
+      audioSrc = "./assets/alarm.mp3";
+    if (!audioSrc) return;
+    if (audio.src !== audioSrc) audio.src = audioSrc;
+    if (audio.paused) {
+      audio.loop = true;   // ✅ Optional if you want looping reminder
+      audio.play().catch((err) => console.warn("Audio play failed:", err));
+    }
   }
+  document.body.addEventListener("click", function unlockAudio() {
+    const audio = document.getElementById("reminder-audio");
+    if (audio) audio.play().catch(() => {});
+    document.body.removeEventListener("click", unlockAudio);
+  });
 
 
   const taskList = document.getElementById("taskList");
@@ -571,6 +587,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allTasks[selectedTaskDate] = tasks;
     localStorage.setItem("tasks", JSON.stringify(allTasks));
     renderTasks();
+    renderTaskChart();
   }
   addTaskBtn.addEventListener("click", () => {
     const task = taskInput.value.trim();
@@ -848,13 +865,17 @@ document.addEventListener("DOMContentLoaded", () => {
       resultsDiv.innerHTML = "";
       matched.forEach(result => {
       const div = document.createElement('div');
-      div.textContent = result;
+      div.innerHTML = result;
       resultsDiv.appendChild(div);
     });
     } else {
       resultsDiv.innerHTML = "<em>No matches found</em>";
     }
   });
+  document.getElementById("searchBtn").addEventListener("click", () => {
+    document.getElementById("searchInput").dispatchEvent(new Event('input'));
+  });
+
 
   //Weather
   const apiKey = 'bae540d64dbdcc792cf2283b8d1f63fe';

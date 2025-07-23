@@ -122,9 +122,16 @@
         <hr>
         <div class="history-scroll-wrapper">
           <div class="history">
-            <h3 id="event-his" class="his-head">📅 Events</h3>
+            <h3 id="mood-task-correlation" class="his-head">📊 Mood vs Task Correlation</h3>
             <div class="chart">
-              <canvas id="eventChart"></canvas>
+              <canvas id="moodTaskChart"></canvas>
+            </div>
+          </div>
+          <hr>
+          <div class="history">
+            <h3 id="mood-his-correlation" class="his-head">📊 Mood vs Event Correlation</h3>
+            <div class="chart">
+              <canvas id="moodEventChart"></canvas>
             </div>
           </div>
           <hr>
@@ -136,9 +143,9 @@
           </div>
           <hr>
           <div class="history">
-            <h3 id="mood-his-correlation" class="his-head">📊 Mood vs Event Correlation</h3>
+            <h3 id="event-his" class="his-head">📅 Events</h3>
             <div class="chart">
-              <canvas id="moodEventChart"></canvas>
+              <canvas id="eventChart"></canvas>
             </div>
           </div>
           <hr>
@@ -315,7 +322,7 @@
       <input type="hidden" id="eventIndex" />
       <input type="text" id="eventTitle" placeholder="Event Title" />
       <textarea id="eventDesc" placeholder="Description (optional)"></textarea>
-      <label>Time:
+      <label>Event Time:
         <input type="time" id="eventTime" class="sett-btn" />
       </label>
       <input type="date" id="eventDate" />
@@ -352,7 +359,7 @@
   <!-- Toast Notification -->
   <div id="reminderToast"></div>
   
-  <audio id="reminder-audio"></audio>
+  <audio id="reminder-audio" preload="auto"></audio>
 
   <!-- Confetti Canvas -->
   <canvas id="confettiCanvas" class="hidden"></canvas>
