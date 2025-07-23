@@ -203,30 +203,23 @@
         <hr>
 
         <div id="location-settings" class="settings">
-          <h3 class="settings-head">🌍 Location</h3>
-          <div class="settings-body">
-            <label>City:
-              <select id="cityLocation" class="sett-btn">
-                <option>Patiala</option>
-                <option>Los Angeles</option>
-                <option>Berlin</option>
-              </select>
-            </label>
-            <label>State:
-              <select id="stateLocation" class="sett-btn">
-                <option>Punjab</option>
-                <option>California</option>
-                <option>Berlin</option>
-              </select>
-            </label>
-            <label>Country:
-              <select id="countryLocation" class="sett-btn">
-                <option>India</option>
-                <option>USA</option>
-                <option>Germany</option>
-              </select>
-            </label>
-          </div>
+        <h3 class="settings-head">🌍 Location</h3>
+        <div class="settings-body">
+          <label>Country:
+            <select id="countryLocation" class="sett-btn">
+              <option value="">Select Country</option>
+            </select>
+          </label>
+          <label>State:
+            <select id="stateLocation" class="sett-btn" disabled>
+              <option value="">Select State</option>
+            </select>
+          </label>
+          <label>City:
+            <select id="cityLocation" class="sett-btn" disabled>
+              <option value="">Select City</option>
+            </select>
+          </label>
         </div>
         <hr>
 
