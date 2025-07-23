@@ -1,21 +1,19 @@
 # 🌤️ Clario – All-in-One Productivity & Wellness Dashboard
 
-> ⚡️ Built for WCHL Hackathon 2025 – Enhancing the Quality of Life for Ventilated Patients  
+> ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone 
 > 👩‍💻 By Team Clario: Lavanya · Akhil · Nitesh · Vaishnavi
 
 ---
 
 ## 🧠 The Problem We're Solving
+In today’s fast-paced world, individuals often struggle to stay organized, maintain emotional balance, and keep track of personal growth. Juggling tasks, moods, and daily plans can feel overwhelming without a centralized system.
 
-Ventilated patients often face challenges like disrupted daily routines, emotional isolation, and limited autonomy. Caregivers also struggle with monitoring day-to-day well-being remotely.
-
-**Clario** bridges this gap by providing a beautiful, responsive, all-in-one dashboard that supports:
-
-- **Task organization**  
-- **Mood and health logging**  
-- **Reminder alerts**  
-- **Weather-aware planning**  
-- **Data visualization for progress tracking**
+Clario solves this by offering a sleek, responsive, all-in-one dashboard that helps you:
+- ✅ Stay on top of tasks and events
+- 😊 Track moods and emotional well-being
+- 🔔 Set smart reminders to stay focused
+- 🌤️ Plan ahead with live weather updates
+- 📊 Visualize your habits and productivity trends
 
 ---
 
@@ -35,15 +33,13 @@ Ventilated patients often face challenges like disrupted daily routines, emotion
 
 ---
 
-## 🩺 Why It Matters
+## 💡 Why It Matters
 
-For ventilated patients and their caregivers, Clario:
-
-- Builds **daily structure and mental clarity**  
-- Enables **safe, weather-informed planning**  
-- Offers **emotional awareness** through visual mood history  
-- Empowers **caregiver collaboration**  
-- Works **offline-first** with local caching  
+- Clario helps you take control of your day and well-being by:
+- Creating daily structure and mental clarity
+- Supporting smart planning with weather insights
+- Building emotional awareness through mood tracking
+- Encouraging productive habits with visual data  
 
 ---
 
@@ -107,12 +103,14 @@ Interactive charts to display:
 
 ```
 clario/  
-├── frontend/       → Complete UI (HTML, CSS, JS)  
-├── backend/        → Express APIs and server logic  
-├── auth/           → Signup/Login, JWT handling  
-├── data-viz/       → Mood & task analytics (Chart.js)  
-├── assets/         → Icons, sounds, images  
-├── README.md
+├── frontend/           → Complete UI (HTML, CSS, JS)  
+│   └── assets/         → Icons, sounds, images (used in frontend)  
+├── backend/            → Express APIs and server logic  
+├── auth/               → Signup/Login, JWT handling  
+├── data-viz/           → Mood & task analytics (Chart.js)  
+├── README.md           → Project overview and documentation  
+├── LICENSE             → MIT License or other (open source license)
+
 ```
 
 ---
@@ -152,17 +150,11 @@ git push origin feature/your-feature-name
 
 ---
 
-## 📸 Screenshots (To Add)
-
-> Insert UI screenshots, bell reminder alert, and mood graphs here.
-
----
-
 ## 📜 License
 
 MIT License – Free to use, adapt, and contribute. Please credit the creators.
 
 ---
 
-> Clario isn’t just a productivity tool — it’s a daily companion for those who need routine, care, and calm.  
-> Designed with empathy. Built for impact. 💙
+> Clario isn’t just a productivity tool — it’s your personal space to stay organized, motivated, and mindful.
+> Thoughtfully crafted. Purposefully built. ✨
