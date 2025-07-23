@@ -877,9 +877,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  //Weather
-  const apiKey = 'bae540d64dbdcc792cf2283b8d1f63fe';
-  const city = 'Patiala,IN';
+  // Weather
   const weatherBox = document.getElementById('weatherBox');
   function getWeatherSummary(condition) {
     switch (condition.toLowerCase()) {
@@ -894,25 +892,165 @@ document.addEventListener("DOMContentLoaded", () => {
       default: return { emoji: '🌡️', text: 'Weather' };
     }
   }
-  function fetchWeather() {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-      .then(response => {
-        if (!response.ok) throw new Error("Network error");
-        return response.json();
-      })
-      .then(data => {
-        const temp = Math.round(data.main.temp);
-        const condition = data.weather[0].main;
-        const summary = getWeatherSummary(condition);
-        weatherBox.textContent = `${summary.emoji} ${temp}°C - ${summary.text}`;
-      })
-      .catch(error => {
-        console.error("Weather error:", error);
-        weatherBox.textContent = "Unable to load weather";
-      });
+  function fetchWeather({ lat, lon, city } = {}) {
+    const apiKey = 'bae540d64dbdcc792cf2283b8d1f63fe';
+    let url;
+    if (lat && lon) {
+      url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    } else if (city) {
+      url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    } else {
+      url = `https://api.openweathermap.org/data/2.5/weather?q=Mumbai,IN&appid=${apiKey}&units=metric`;
+    }
+    fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error("Network error");
+      return response.json();
+    })
+    .then(data => {
+      const temp = Math.round(data.main.temp);
+      const condition = data.weather[0].main;
+      const summary = getWeatherSummary(condition);
+      weatherBox.textContent = `${summary.emoji} ${temp}°C - ${summary.text}`;
+    })
+    .catch(error => {
+      console.error("Weather error:", error);
+      weatherBox.textContent = "Unable to load weather";
+    });
   }
-  fetchWeather();
-  setInterval(fetchWeather, 600000);  // Refresh every 10 mins
+  function initWeather() {
+    const savedCity = localStorage.getItem("locationCity");
+    if (savedCity) {
+      // ✅ Use user-selected city
+      fetchWeather({ city: savedCity });
+    } else if ("geolocation" in navigator) {
+      // 📍 Try to use geolocation
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          fetchWeather({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          });
+        },
+        error => {
+          // ❌ Location denied → fallback to Mumbai
+          fetchWeather({ city: "Mumbai" });
+        }
+      );
+    } else {
+      // ❌ No location, no city → Mumbai
+      fetchWeather({ city: "Mumbai" });
+    }
+    // 🔄 Auto-refresh every 10 minutes
+    setInterval(() => {
+      const city = localStorage.getItem("locationCity");
+      if (city) {
+        fetchWeather({ city });
+      } else if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            fetchWeather({
+              lat: position.coords.latitude,
+              lon: position.coords.longitude
+            });
+          },
+          () => {
+            fetchWeather({ city: "Mumbai" });
+          }
+        );
+      } else {
+        fetchWeather({ city: "Mumbai" });
+      }
+    }, 600000);
+  }
+  initWeather();
+
+
+  //Location
+  const countryLocation = document.getElementById("countryLocation");
+  const stateLocation = document.getElementById("stateLocation");
+  const cityLocation = document.getElementById("cityLocation");
+  // ------------------- Load Countries -------------------
+  fetch("https://countriesnow.space/api/v0.1/countries/positions")
+    .then(res => res.json())
+    .then(data => {
+      data.data.forEach(country => {
+        const opt = document.createElement("option");
+        opt.value = country.name;
+        opt.textContent = country.name;
+        countryLocation.appendChild(opt);
+      });
+      // Restore saved country if exists
+      const savedCountry = localStorage.getItem("locationCountry");
+      if (savedCountry) {
+        countryLocation.value = savedCountry;
+        countryLocation.dispatchEvent(new Event("change"));
+      }
+    });
+  // ------------------- On Country Change -------------------
+  countryLocation.addEventListener("change", () => {
+    stateLocation.innerHTML = `<option value="">Select State</option>`;
+    cityLocation.innerHTML = `<option value="">Select City</option>`;
+    cityLocation.disabled = true;
+    const country = countryLocation.value;
+    if (!country) return;
+    localStorage.setItem("locationCountry", country);
+    fetch("https://countriesnow.space/api/v0.1/countries/states", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ country })
+    })
+    .then(res => res.json())
+    .then(data => {
+      data.data.states.forEach(state => {
+        const opt = document.createElement("option");
+        opt.value = state.name;
+        opt.textContent = state.name;
+        stateLocation.appendChild(opt);
+      });
+      stateLocation.disabled = false;
+      // Restore saved state if exists
+      const savedState = localStorage.getItem("locationState");
+      if (savedState) {
+        stateLocation.value = savedState;
+        stateLocation.dispatchEvent(new Event("change"));
+      }
+    });
+  });
+  // ------------------- On State Change -------------------
+  stateLocation.addEventListener("change", () => {
+    cityLocation.innerHTML = `<option value="">Select City</option>`;
+    const country = countryLocation.value;
+    const state = stateLocation.value;
+    if (!state) return;
+    localStorage.setItem("locationState", state);
+    fetch("https://countriesnow.space/api/v0.1/countries/state/cities", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ country, state })
+    })
+    .then(res => res.json())
+    .then(data => {
+      data.data.forEach(city => {
+        const opt = document.createElement("option");
+        opt.value = city;
+        opt.textContent = city;
+        cityLocation.appendChild(opt);
+      });
+      cityLocation.disabled = false;
+      // Restore saved city if exists
+      const savedCity = localStorage.getItem("locationCity");
+      if (savedCity) {
+        cityLocation.value = savedCity;
+      }
+    });
+  });
+  // ------------------- On City Change -------------------
+  cityLocation.addEventListener("change", () => {
+    const city = cityLocation.value;
+    localStorage.setItem("locationCity", city);
+  });
+
 
 
   const countryLocation = document.getElementById("countryLocation");
