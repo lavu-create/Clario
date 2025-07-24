@@ -454,7 +454,6 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("tasks", JSON.stringify(allTasks));
             renderTasks();
             renderTaskChart();
-            renderMoodTaskChart();
           });
           // Task Text
           const span = document.createElement("span");
@@ -468,7 +467,7 @@ document.addEventListener("DOMContentLoaded", () => {
             allTasks[date] = tasks;
             localStorage.setItem("tasks", JSON.stringify(allTasks));
             renderTasks();
-            art();
+            renderTaskChart();
           });
           li.appendChild(checkbox);
           li.appendChild(span);
@@ -498,7 +497,6 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("tasks", JSON.stringify(allTasks));
           renderTasks();
           renderTaskChart();
-           renderMoodTaskChart();
         });
         // Task Text
         const span = document.createElement("span");
@@ -513,7 +511,6 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("tasks", JSON.stringify(allTasks));
           renderTasks();
           renderTaskChart();
-           renderMoodTaskChart();
         });
         li.appendChild(checkbox);
         li.appendChild(span);
@@ -591,7 +588,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("tasks", JSON.stringify(allTasks));
     renderTasks();
     renderTaskChart();
-     renderMoodTaskChart();
   }
   addTaskBtn.addEventListener("click", () => {
     const task = taskInput.value.trim();
@@ -605,7 +601,6 @@ document.addEventListener("DOMContentLoaded", () => {
       taskInput.value = "";
       renderTasks();
       renderTaskChart();
-       renderMoodTaskChart();
     }
   });
   
@@ -670,12 +665,10 @@ document.addEventListener("DOMContentLoaded", () => {
       moodPopup.classList.add("hidden");
       // Save mood with timestamp
       const moods = JSON.parse(localStorage.getItem("moodLog") || "[]");
-const today = new Date().toISOString().split("T")[0];
-moods.push({ mood, date: today });
-localStorage.setItem("moodLog", JSON.stringify(moods));
-renderMoodChart();
-renderMoodEventChart();
-renderMoodTaskChart();
+      moods.push({ mood, date: new Date().toISOString() });  // Save mood and date
+      localStorage.setItem("moodLog", JSON.stringify(moods));
+      // Update the chart
+      renderMoodChart();
     });
   });
   // Close popup if clicked outside
@@ -1185,6 +1178,5 @@ renderMoodTaskChart();
   if (typeof renderTaskChart === "function") renderTaskChart();
   if (typeof renderEventChart === "function") renderEventChart();
   if (typeof renderMoodChart === "function") renderMoodChart();
-  if (typeof renderMoodEventChart  === "function") renderMoodEventChart();
-  if (typeof renderMoodTaskChart === "function") renderMoodTaskChart();
+  if (typeof renderMoodChart === "function") renderMoodEventChart();
 });

@@ -1,6 +1,5 @@
 function renderTaskChart() {
-  const tasksObj = JSON.parse(localStorage.getItem("tasks") || "{}");
-  const allTasks = Object.values(tasksObj).flat();
+  const allTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   let completed = 0, pending = 0;
   allTasks.forEach(t => t.done ? completed++ : pending++);
   const ctx = document.getElementById('tasksChart').getContext('2d');
@@ -36,7 +35,26 @@ function renderTaskChart() {
 }
 
 
-
+function renderMoodChart() {
+  const moods = JSON.parse(localStorage.getItem("moods") || "[]");
+  const moodTypes = ['😊', '😢', '😡', '😴', '😍'];
+  const moodCounts = moodTypes.map(mood =>
+    moods.filter(m => m.mood === mood).length
+  );
+  const ctx = document.getElementById('moodChart').getContext('2d');
+  if (window.moodChartObj) window.moodChartObj.destroy();
+  window.moodChartObj = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: moodTypes,
+      datasets: [{
+        label: 'Mood Frequency',
+        data: moodCounts,
+        backgroundColor: ['#ffb6c1', '#d3d3d3', '#ffa500', '#aeeaae', '#ff4d4d'],
+      }]
+    }
+  });
+}
 
 function renderEventChart() {
   const events = JSON.parse(localStorage.getItem("events") || "[]");
@@ -75,225 +93,3 @@ function renderEventChart() {
     }
   });
 }
-
-function renderMoodChart() {
-  // Read from your moodLog key
-  const moods = JSON.parse(localStorage.getItem("moodLog") || "[]");
-
-  // Extract only the mood strings
-  const moodTypes  = ['😊','😢','😡','😴','😍'];
-  const moodCounts = moodTypes.map(mt =>
-    moods.filter(m => m.mood === mt).length
-  );
-
-  const ctx = document.getElementById('moodChart').getContext('2d');
-  if (window.moodChartObj) window.moodChartObj.destroy();
-  window.moodChartObj = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: moodTypes,
-      datasets: [{
-        label: 'Mood Count',
-        data: moodCounts,
-        backgroundColor: ['#ffb6c1','#d3d3d3','#ffa500','#aeeaae','#ff4d4d']
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: { beginAtZero:true, ticks:{precision:0} }
-      }
-    }
-  });
-}
-
-function renderMoodEventChart() {
-  const moodData = JSON.parse(localStorage.getItem("moodLog") || "[]");
-  const eventData = JSON.parse(localStorage.getItem("events") || "[]");
-
-  // Group counts by date (YYYY-MM-DD)
-  const moodCounts = {};
-  const eventCounts = {};
-
-  moodData.forEach(({ date }) => {
-    const day = date?.slice(0, 10);
-    if (day) moodCounts[day] = (moodCounts[day] || 0) + 1;
-  });
-
-  eventData.forEach(({ date }) => {
-    const day = date?.slice(0, 10);
-    if (day) eventCounts[day] = (eventCounts[day] || 0) + 1;
-  });
-
-  // Union of all unique days
-  const allDays = Array.from(new Set([...Object.keys(moodCounts), ...Object.keys(eventCounts)])).sort();
-
-  const moodVals = allDays.map(day => moodCounts[day] || 0);
-  const eventVals = allDays.map(day => eventCounts[day] || 0);
-
-  const ctx = document.getElementById("moodEventChart").getContext("2d");
-
-  if (window.moodEventChartObj) window.moodEventChartObj.destroy();
-
-  window.moodEventChartObj = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: allDays,
-      datasets: [
-        {
-          label: "Moods",
-          data: moodVals,
-          backgroundColor: "#ff9800", // orange
-        },
-        {
-          label: "Events",
-          data: eventVals,
-          backgroundColor: "#607d8b", // blue-gray
-        },
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        title: {
-          display: true,
-          text: "Daily Mood vs Event Count",
-          color: "#ccc",
-          font: {
-            size: 16
-          }
-        },
-        legend: {
-          labels: {
-            color: "#ccc"
-          }
-        },
-      },
-      scales: {
-        x: {
-          stacked: false,
-          ticks: {
-            color: "#ccc"
-          },
-          title: {
-            display: true,
-            text: "Date",
-            color: "#aaa"
-          }
-        },
-        y: {
-          stacked: false,
-          beginAtZero: true,
-          ticks: {
-            color: "#ccc"
-          },
-          title: {
-            display: true,
-            text: "Count",
-            color: "#aaa"
-          }
-        }
-      }
-    }
-  });
-}
-
-
-function renderMoodTaskChart() {
-  const moodLog = JSON.parse(localStorage.getItem("moodLog")) || [];
-  const tasksByDate = JSON.parse(localStorage.getItem("tasks")) || {};
-
-  const moodCountByDate = {};
-  const completedTasksByDate = {};
-
-  // Count moods per date
-  for (const entry of moodLog) {
-    if (entry.date) {
-      const date = entry.date.slice(0, 10); // extract YYYY-MM-DD
-      moodCountByDate[date] = (moodCountByDate[date] || 0) + 1;
-    }
-  }
-
-  // Count completed tasks per date
-  for (const date in tasksByDate) {
-    const tasks = tasksByDate[date];
-    const completed = tasks.filter(t => t.done).length;
-    completedTasksByDate[date] = completed;
-  }
-
-  // Combine unique dates
-  const allDates = new Set([...Object.keys(moodCountByDate), ...Object.keys(completedTasksByDate)]);
-  const sortedDates = [...allDates].sort();
-
-  const moodData = sortedDates.map(date => moodCountByDate[date] || 0);
-  const taskData = sortedDates.map(date => completedTasksByDate[date] || 0);
-
-  const ctx = document.getElementById("moodTaskChart").getContext("2d");
-
-  // Destroy previous chart if any
-  if (window.moodTaskChartInstance) {
-    window.moodTaskChartInstance.destroy();
-  }
-
-  window.moodTaskChartInstance = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: sortedDates,
-      datasets: [
-        {
-          label: "Mood Logs",
-          data: moodData,
-          backgroundColor: "rgba(255, 99, 132, 0.6)",
-        },
-        {
-          label: "Completed Tasks",
-          data: taskData,
-          backgroundColor: "rgba(54, 162, 235, 0.6)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-          display: true,
-          text: "Mood vs Completed Tasks Per Day",
-        },
-      },
-      scales: {
-        x: {
-          stacked: true,
-        },
-        y: {
-          beginAtZero: true,
-          stacked: false,
-        },
-      },
-    },
-  });
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
