@@ -160,6 +160,18 @@ canvas {
   margin-top: 10px;
 }
 
+/* ── Override history‐section chart sizing ─────────────────────────── */
+#historySection .chart {
+  width: 320px !important;   /* or whatever card width you prefer */
+  height: 200px !important;  /* give them more vertical room */
+}
+
+/* Ensure each .history block stays that width in the scroll row */
+.history-scroll-wrapper > .history {
+  flex: 0 0 auto;
+  min-width: 320px;          /* match the canvas width */
+}
+
 .sidebar-collapsed .main-content {
   margin-left: 0px; /* no sidebar */
 }

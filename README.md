@@ -1,146 +1,160 @@
-# Clario – All-in-One Productivity Dashboard
+# 🌤️ Clario – All-in-One Productivity & Wellness Dashboard
 
-Clario is your ultimate productivity and wellness dashboard — a beautifully designed, fully functional web application that helps users manage tasks, track events, log moods, take quick notes, and visualize their personal data.
-
-> Built with passion and precision for Hackathon 2025!
-
----
-
-## Highlights
-
-- **Smart Task Manager** – Add, complete, and filter tasks by status (All / Pending / Completed)
-- **Interactive Calendar** – Add, view, and delete events with a full or mini view
-- **Sticky Notes** – Jot down ideas and drag/drop them anywhere on your board
-- **Mood Tracker** – Select emoji-based moods and write reflections each day
-- **Data Visualization** – Analyze task stats and emotional trends using dynamic charts
-- **Theme Switcher** – Toggle between Light/Dark modes with one click
-- **Profile Personalization** – Upload your photo and edit your display name
-- **Authentication** – Secure login/signup with token-based sessions (JWT)
-- **Data Reset & Export** – Export everything to JSON or reset with a single click
-- **Responsive UI** – Fully optimized for desktop, tablet, and mobile
+> ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone 
+> 👩‍💻 By Team Clario: Lavanya · Akhil · Nitesh · Vaishnavi
 
 ---
 
-## Tech Stack
+## 🧠 The Problem We're Solving
+In today’s fast-paced world, individuals often struggle to stay organized, maintain emotional balance, and keep track of personal growth. Juggling tasks, moods, and daily plans can feel overwhelming without a centralized system.
 
-- HTML, CSS, JavaScript
-- Node.js, Express.js
-- JWT, bcrypt
-- Chart.js
-- LocalStorage + MongoDB (or JSON file fallback)
-- Deployed via GitHub Pages and Render
-
----
-
-## Project Structure
-
-```
-clario/
-├── frontend/       → Complete UI (HTML, CSS, JS)
-├── backend/        → API and server logic
-├── auth/           → Login, signup, JWT handling
-├── data-viz/       → Charts and analytics
-├── assets/         → Icons and images
-├── README.md
-```
+Clario solves this by offering a sleek, responsive, all-in-one dashboard that helps you:
+- ✅ Stay on top of tasks and events
+- 😊 Track moods and emotional well-being
+- 🔔 Set smart reminders to stay focused
+- 🌤️ Plan ahead with live weather updates
+- 📊 Visualize your habits and productivity trends
 
 ---
 
-## How to Run
+## 🌟 Key Highlights
 
-### Frontend
+- 📅 **Smart Calendar** – Organize and view daily events  
+- ✅ **Task Manager** – Add, complete, and filter tasks  
+- ⏰ **Reminders** – Ringing alerts with visual cue (bell) and online sounds  
+- 📝 **Sticky Notes** – Drag and drop idea pads  
+- 😊 **Mood Tracker** – Log feelings with emoji & notes  
+- 📊 **Data Visualization** – Analyze habits, moods, and task stats  
+- 🌤️ **Live Weather** – Auto or manual location-based weather insights  
+- 🔐 **Authentication** – Secure sign-up/login using JWT  
+- 🎨 **Theme Toggle** – Light and Dark mode  
+- 📱 **Responsive UI** – Works beautifully across devices  
+- 💾 **Data Export / Reset** – Backup or clean with one click  
+
+---
+
+## 💡 Why It Matters
+
+- Clario helps you take control of your day and well-being by:
+- Creating daily structure and mental clarity
+- Supporting smart planning with weather insights
+- Building emotional awareness through mood tracking
+- Encouraging productive habits with visual data  
+
+---
+
+## 🧰 Tech Stack
+
+| Layer          | Technologies                                |
+|----------------|---------------------------------------------|
+| Frontend       | HTML, CSS, JavaScript                       |
+| Backend        | Node.js, Express.js                         |
+| Auth           | JWT, bcrypt                                 |
+| Data Storage   | MongoDB or JSON fallback + LocalStorage     |
+| Charts         | Chart.js                                    |
+| Notifications  | Web Audio API with online sound             |
+| Weather API    | OpenWeatherMap                              |
+| Deployment     | GitHub Pages (frontend) + Render (backend)  |
+
+---
+
+## 🚀 Getting Started
+
+### 🖥️ Frontend
 
 ```bash
-cd clario/frontend
-open index.html   # Or open manually in a browser
+cd clario/frontend  
+open index.html   # or open manually in browser
 ```
 
-### Backend
+### 🔧 Backend
 
 ```bash
-cd clario/backend
-npm install
+cd clario/backend  
+npm install  
 node app.js
 ```
 
-API will run on `http://localhost:3000` (or your configured port)
+Backend runs at: `http://localhost:3000`
 
 ---
 
-## Auth Flow
+## 🔐 Auth Flow
 
-1. New users can **sign up**
-2. Passwords are **hashed with bcrypt**
-3. Upon login, a **JWT token** is issued
-4. Protected routes are accessible only with valid tokens
-5. Tokens stored in **localStorage**
-
----
-
-## Data Visualization
-
-Visual dashboards show:
-
-- Completed vs. Pending tasks
-- Mood trends (emoji frequency)
-- Event density over time
-
-Charts are dynamically generated using Chart.js.
+1. Users sign up with email and password  
+2. Passwords are securely hashed using `bcrypt`  
+3. On login, a JWT token is issued  
+4. Protected routes require valid token  
+5. Token stored in `localStorage` for session persistence  
 
 ---
 
-## Team Clario
+## 📊 Data Visualization (by Vaishnavi)
 
-- Lavanya – Frontend UI & Project Lead
-- Akhil – Backend & REST APIs
-- Vaishnavi – Data Visualization & Charts
-- Nitesh – Authentication & Full Stack Support
+Interactive charts to display:
+
+- Task completion rates  
+- Emoji-based mood trends  
+- Event frequency and productivity spikes  
 
 ---
 
-## Git Workflow
+## 📁 Project Structure
 
-1. Clone the project:
+```
+clario/  
+├── frontend/           → Complete UI (HTML, CSS, JS)  
+│   └── assets/         → Icons, sounds, images (used in frontend)  
+├── backend/            → Express APIs and server logic  
+├── auth/               → Signup/Login, JWT handling  
+├── data-viz/           → Mood & task analytics (Chart.js)  
+├── README.md           → Project overview and documentation  
+├── LICENSE             → MIT License or other (open source license)
 
-```bash
-git clone https://github.com/your-username/clario.git
-cd clario
 ```
 
-2. Create a branch:
+---
+
+## 🧑‍💻 Team Clario
+
+| Name       | Role               | Contribution                            |
+|------------|--------------------|-----------------------------------------|
+| Lavanya    | Frontend Lead      | UI, live clock, reminders, weather UI   |
+| Akhil      | Backend & DB       | REST APIs, task/event data persistence  |
+| Nitesh     | Auth & Integration | JWT login/signup, system architecture   |
+| Vaishnavi  | Data Visualization | Mood and task analytics (Chart.js)      |
+
+---
+
+## 🌱 Git Workflow
 
 ```bash
-git checkout -b feature/your-feature-name
-```
-
-3. Commit and push:
-
-```bash
-git add .
-git commit -m "Added new feature"
+git clone https://github.com/your-username/clario.git  
+cd clario  
+git checkout -b feature/your-feature-name  
+# Make changes  
+git add .  
+git commit -m "Added new feature"  
 git push origin feature/your-feature-name
 ```
 
-4. Create a Pull Request on GitHub and merge after review
+---
+
+## 🛠️ Future Enhancements
+
+- 🎙️ Voice-based reminders  
+- 🧠 AI-based mood prediction  
+- 👥 Caregiver-patient sync calendar  
+- 📲 Mobile app via React Native or Flutter  
+- 🧭 PWA support with offline-first capability  
 
 ---
 
-## Why Clario Stands Out
+## 📜 License
 
-- Combines productivity + mental wellness in one clean dashboard
-- Fully modular and scalable structure
-- Built with real-world Git workflows
-- Secure, user-first authentication
-- Mobile-responsive and fast-loading
-- Personalized visual insights to boost performance
-- Designed with attention to UX and aesthetic detail
+MIT License – Free to use, adapt, and contribute. Please credit the creators.
 
 ---
 
-## License
-
-MIT License – Free to use, modify, and expand. Please give credit when sharing.
-
----
-
-> Clario isn’t just a productivity tool — it’s your daily dashboard for getting things done, staying balanced, and feeling great.
+> Clario isn’t just a productivity tool — it’s your personal space to stay organized, motivated, and mindful.
+> Thoughtfully crafted. Purposefully built. ✨
