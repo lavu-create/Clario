@@ -105,13 +105,9 @@ Interactive charts to display:
 clario/  
 ├── frontend/           → Complete UI (HTML, CSS, JS)  
 │   └── assets/         → Icons, sounds, images (used in frontend)
-|   └── index.html/
-|   └── script.ccs/
-|   └── assets/
 ├── backend/            → Express APIs and server logic  
 ├── auth/               → Signup/Login, JWT handling  
 ├── data-viz/           → Mood & task analytics (Charts)
-|   └── chart.js/
 ├── README.md           → Project overview and documentation  
 ├── LICENSE             → MIT License or other (open source license)
 
