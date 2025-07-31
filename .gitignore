@@ -1,8 +1,0 @@
-node_modules/
-frontend/.env
-
-dist/
-build/
-
-.env
-index.html
