@@ -150,11 +150,5 @@ git push origin feature/your-feature-name
 
 ---
 
-## 📜 License
-
-MIT License – Free to use, adapt, and contribute. Please credit the creators.
-
----
-
 > Clario isn’t just a productivity tool — it’s your personal space to stay organized, motivated, and mindful.
 > Thoughtfully crafted. Purposefully built. ✨
