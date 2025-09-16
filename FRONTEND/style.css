@@ -191,8 +191,9 @@ canvas {
 }
 
 .sidebar-collapsed .main-content {
-  margin-left: 0px; /* no sidebar */
+  margin-left: 0;
 }
+
 /* ========== SIDEBAR ========== */
 .sidebar {
   width: 240px;
@@ -213,7 +214,8 @@ canvas {
   position: relative;
 }
 .sidebar-wrapper.collapsed {
-  transform: translateX(-240px); /* sidebar width */
+  transform: translateX(-264px); /* sidebar width */
+  width: 1rem;
 }
 /* === Hamburger Menu Button Styling === */
 .menu-btn {
@@ -276,11 +278,13 @@ canvas {
   width: 0;
   padding: 0;
   border: none;
+  transform: translateX(-100%);
 }
 .sidebar.expanded {
   width: 240px;
   padding: 1rem;
   border-right: 1px solid #ddd;
+  transform: translateX(0);
 }
 /* Hide all inner content when collapsed */
 .sidebar.collapsed > *:not(.logo-section) {
@@ -434,7 +438,7 @@ nav li:hover {
   flex-direction: column;
   overflow: hidden;
   margin-right: 370px;
-  transition: margin 0.3s ease;
+  transition: margin 0.3s ease, width 0.3s ease;
 }
 #calendarSection {
   position: relative;
@@ -482,6 +486,7 @@ nav li:hover {
   object-fit: contain;
 }
 #monthTitle {
+  margin: 0 4.4px 0 4.4px;
   min-width: 150px;
   font-size: 1.4rem;
   font-weight: bold;
