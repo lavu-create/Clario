@@ -513,7 +513,7 @@ nav li:hover {
 }
 .danger-btn {
   background-color: var(--danger-color);
-  color: white;
+  color: var(--text-color);
   border: none;
   font-size: 16px;
   cursor: pointer;
@@ -523,7 +523,7 @@ nav li:hover {
   box-shadow: var(--shadow-sm);
 }
 .danger-btn:hover {
-  background-color: #a00d00;
+  background-color: #a00d00 !important;
   box-shadow: var(--shadow-md);
 }
 
@@ -848,7 +848,7 @@ nav li:hover {
 }
 .mini-calendar .today {
   background-color: var(--accent-color);
-  color: white;
+  color: rgb(255, 255, 255);
   font-weight: bold;
 }
 .mini-calendar div:hover {
@@ -857,7 +857,7 @@ nav li:hover {
 }
 #miniCalendar .mini-selected {
   border: 2px solid var(--accent-color);
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: rgba(153, 32, 1, 0.747);
 }
 
 /* ========== TASK SECTION ========== */
@@ -1266,14 +1266,15 @@ body.sunburst-theme {
 .themed-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+  color: (var(--text-color)) !important;
 }
 .daylight-theme .themed-btn {
   background-color: #ffe600;
-  color: #000;
+  color: #000000;
 }
 .moonlight-theme .themed-btn {
   background-color: rgb(55, 0, 128);
-  color: #fff;
+  color: #ffffff;
 }
 .light-theme .themed-btn {
   background-color: #2196f3;
@@ -1289,7 +1290,7 @@ body.sunburst-theme {
 }
 .sunburst-theme .themed-btn {
   background-color: rgb(255, 118, 84);
-  color: #000;
+  color: #ffffff;
 }
 
 /* ========== RESPONSIVE ========== */
