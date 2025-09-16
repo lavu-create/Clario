@@ -134,7 +134,7 @@ function renderMoodEventChart() {
         {
           label: "Moods",
           data: moodVals,
-          backgroundColor: "#ff9800", // orange
+          backgroundColor: "#ff7b00ff", // orange
         },
         {
           label: "Events",

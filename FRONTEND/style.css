@@ -16,6 +16,11 @@
   --miniCal-bg: white;
   --main-font: 'Open Sans', sans-serif;
   --heading-font: 'Montserrat', sans-serif;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease;
+  --radius: 8px;
 }
 
 h1, h2, h3, h4 {
@@ -26,7 +31,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Prevent body scroll */
+  overflow: hidden;
 }
 
 .feather {
@@ -75,6 +80,13 @@ section#historySection.hidden, section#settingsSection.hidden {
 .settings {
   padding: 0.4rem;
   margin-bottom: 0.4rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+.settings:hover {
+  box-shadow: var(--shadow-md);
 }
 .settings-head {
   margin: 0px 0px 4px 0px;
@@ -89,16 +101,39 @@ section#historySection.hidden, section#settingsSection.hidden {
   margin-top: 10px;
   margin-bottom: 10px;
   cursor: pointer;
+  transition: var(--transition);
+}
+.color-sett-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
 }
 .sett-btn {
   margin: 8px 10px 0px 0px;
   cursor: pointer;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  background: var(--card-bg);
+  transition: var(--transition);
+}
+.sett-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
 }
 .settings-body {
   padding: 5px 0px 4px 0px;
 }
 .reminder-input {
   width: 40px;
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+.reminder-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 .reminder {
   display: none;
@@ -107,7 +142,7 @@ section#historySection.hidden, section#settingsSection.hidden {
   margin-left: 10px;
 }
 #reminderToast {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 12px 20px;
   border-radius: 6px;
@@ -139,6 +174,10 @@ section#historySection.hidden, section#settingsSection.hidden {
   border: none;
   color: var(--text-color);
   cursor: pointer;
+  transition: var(--transition);
+}
+.term-btn:hover {
+  color: var(--accent-color);
 }
 .set-his {
   display: flex;
@@ -173,9 +212,27 @@ canvas {
 }
 .history {
   padding: 0.4rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  margin-bottom: 10px;
+}
+.history:hover {
+  box-shadow: var(--shadow-md);
 }
 #export-his, #clearHistoryBtn {
   margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  background: var(--card-bg);
+  cursor: pointer;
+  transition: var(--transition);
+}
+#export-his:hover, #clearHistoryBtn:hover {
+  background-color: var(--accent-color);
+  color: white;
 }
 
 /* ── Override history‐section chart sizing ─────────────────────────── */
@@ -207,6 +264,7 @@ canvas {
   justify-content: space-between;
   overflow-y: auto;
   position: relative;
+  box-shadow: var(--shadow-md);
 }
 .sidebar-wrapper {
   display: flex;
@@ -232,6 +290,12 @@ canvas {
   left: 269px;
   height: 25.4px;
   transition: left 0.3s ease;
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+}
+.menu-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
 }
 /* Show menu button only on small screens */
 @media (max-width: 768px) {
@@ -320,6 +384,12 @@ canvas {
   color: var(--text-color);
   border-radius: 4px;
   border: 1px solid #ccc;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+#themeSwitcher:focus {
+  outline: none;
+  border-color: var(--accent-color);
 }
 .reset-btn {
   background: transparent;
@@ -328,6 +398,10 @@ canvas {
   cursor: pointer;
   padding: 0px;
   margin-right: 4px;
+  transition: var(--transition);
+}
+.reset-btn:hover {
+  color: var(--accent-color);
 }
 /* === Theme Controls in Sidebar === */
 .theme-controls {
@@ -354,6 +428,12 @@ canvas {
   color: white;
   cursor: pointer;
   margin-left: 24px;
+  transition: var(--transition);
+  border: 2px solid transparent;
+}
+.profile-pic-btn:hover {
+  border-color: var(--accent-color);
+  transform: scale(1.02);
 }
 .profile-popup {
   display: flex;
@@ -370,6 +450,8 @@ canvas {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border: 2px solid var(--accent-color);
+  box-shadow: var(--shadow-md);
 }
 #profileDisplayArea img {
   width: 100%;
@@ -392,6 +474,12 @@ canvas {
   font-weight: bold;
   color: var(--text-color);
   outline: none;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+#sidebarNameInput:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 .sidebar.collapsed #sidebarNameInput {
   display: none; /* hide name input if sidebar is collapsed */
@@ -408,10 +496,12 @@ nav li {
   margin: 0px 0px 4px 0px;
   cursor: pointer;
   border-radius: 4px;
+  transition: var(--transition);
 }
 nav li.active,
 nav li:hover {
   background-color: var(--hover);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ========== SIDEBAR BUTTONS ========== */
@@ -429,6 +519,12 @@ nav li:hover {
   cursor: pointer;
   border-radius: 5px;
   padding: 5px 8px 8px 4px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.danger-btn:hover {
+  background-color: #a00d00;
+  box-shadow: var(--shadow-md);
 }
 
 /* ========== CALENDAR MAIN ========== */
@@ -455,6 +551,10 @@ nav li:hover {
   flex-wrap: wrap;
   padding: 10px 20px;
   gap: 1rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
 }
 .calendar-left {
   flex: 1;
@@ -500,9 +600,25 @@ nav li:hover {
 #searchInput {
   flex: 1;
   padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+#searchInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 #searchCategory {
   padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  transition: var(--transition);
+}
+#searchCategory:focus {
+  outline: none;
+  border-color: var(--accent-color);
 }
 .calendar-event-btn {
   background: transparent;
@@ -513,6 +629,10 @@ nav li:hover {
   padding: 0px 0px 0px 0px;
   margin-top: 6px;
   display: block;
+  transition: var(--transition);
+}
+.calendar-event-btn:hover {
+  color: var(--accent-color);
 }
 /* ========== CALENDAR GRID ========== */
 .day-names {
@@ -524,15 +644,28 @@ nav li:hover {
   border-bottom: 1px solid #ccc;
   text-align: center;
   padding: 0.5rem 0;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 0.5rem;
 }
+.calendar-grid div {
+  height: 50px;
+  background: var(--card-bg);
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  position: relative;
+  border-radius: 4px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
 .calendar-grid div:hover {
   cursor: pointer;
   border: 1px solid var(--note-bg);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 /* Event Item inside Calendar Cell */
 .event-item {
@@ -545,15 +678,10 @@ nav li:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.calendar-grid div {
-  height: 50px;
-  background: var(--card-bg);
-  border: 1px solid #ddd;
-  padding: 0.5rem;
-  position: relative;
-}
 .calendar-grid .today {
   background: var(--note-bg);
+  font-weight: bold;
+  box-shadow: 0 0 0 2px var(--accent-color);
 }
 .calendar-grid .event-item {
   display: block;
@@ -569,7 +697,8 @@ nav li:hover {
   text-overflow: ellipsis;
 }
 .calendar-grid div.selected-date {
-  border: 1px solid var(--note-bg);
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 /* ========== RIGHT PANEL ========== */
@@ -589,6 +718,7 @@ nav li:hover {
   gap: 1rem;
   border-left: 1px solid #ddd;
   flex-shrink: 0;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
 }
 .resource-card,
 .task-section,
@@ -598,32 +728,19 @@ nav li:hover {
   background: var(--card-bg);
   border: 1px solid #ccc;
   padding: 0.4rem;
-  border-radius: 6px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+.resource-card:hover,
+.task-section:hover,
+.mood-tracker:hover,
+.sticky-notes:hover,
+.mood-stats:hover {
+  box-shadow: var(--shadow-md);
 }
 
 /* ========== Progress ========== */
-/* .progress-circle {
-  width: 98px;
-  height: 98px;
-  border-radius: 50%;
-  background: var(--note-bg);;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 4px;
-  margin-bottom: 4px;
-} */
-/* .list {
-  margin: 0px 0px 10px 0px;
-} */
-/* .prod-flex {
-  width: 140px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start !important;
-} */
 .prod-head {
   margin: 10px 0px 10px 0px;
   width: 140px;
@@ -670,7 +787,7 @@ nav li:hover {
   gap: 0.3rem;
   z-index: 10;
   max-width: 240px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: var(--shadow-lg);
 }
 .mood-popup button {
   font-size: 1.3rem;
@@ -678,9 +795,12 @@ nav li:hover {
   border: none;
   cursor: pointer;
   transition: transform 0.2s ease;
+  padding: 4px;
+  border-radius: 50%;
 }
 .mood-popup button:hover {
   transform: scale(1.2);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .mood {
   margin: 0px 0px 0px 10px;
@@ -700,6 +820,9 @@ nav li:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ========== MINI CALENDAR ========== */
@@ -720,15 +843,21 @@ nav li:hover {
   background: var(--miniCal-bg);
   border-radius: 4px;
   cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 .mini-calendar .today {
   background-color: var(--accent-color);
+  color: white;
+  font-weight: bold;
 }
 .mini-calendar div:hover {
   border: 2px solid var(--accent-color);
+  transform: scale(1.05);
 }
 #miniCalendar .mini-selected {
   border: 2px solid var(--accent-color);
+  background-color: rgba(0, 123, 255, 0.1);
 }
 
 /* ========== TASK SECTION ========== */
@@ -753,6 +882,12 @@ nav li:hover {
   border-radius: 6px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  transition: var(--transition);
+}
+.new-task input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 .new-task button {
   padding: 0.4rem 1rem;
@@ -760,6 +895,14 @@ nav li:hover {
   white-space: nowrap;
   border-radius: 6px;
   box-sizing: border-box;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.new-task button:hover {
+  background-color: #0069d9;
 }
 .task-item {
   display: flex;
@@ -770,6 +913,12 @@ nav li:hover {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 5px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.task-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(2px);
 }
 .task-text {
   flex: 1;
@@ -783,6 +932,7 @@ nav li:hover {
   cursor: pointer;
   font-size: 1.1rem;
   padding: 2px;
+  transition: var(--transition);
 }
 .delete-task-btn:hover {
   transform: scale(1.2);
@@ -798,6 +948,10 @@ nav li:hover {
   background: none;
   border: none;
   cursor: pointer;
+  transition: var(--transition);
+}
+.task-header button:hover {
+  color: var(--accent-color);
 }
 .task-header h4 {
   margin: 0;
@@ -807,6 +961,10 @@ nav li:hover {
   background: none;
   border: none;
   cursor: pointer;
+  transition: var(--transition);
+}
+#toggleMiniCal:hover {
+  color: var(--accent-color);
 }
 
 /* ========== EMOJI BAR ========== */
@@ -819,6 +977,10 @@ nav li:hover {
   flex: 1;
   height: 10px;
   border-radius: 4px;
+  transition: var(--transition);
+}
+.emoji-bar div:hover {
+  transform: scaleY(1.5);
 }
 .emoji-lovely { background-color: var(--mood-lovely); }
 .emoji-happy { background-color: var(--mood-happy); }
@@ -843,6 +1005,13 @@ nav li:hover {
   font-size: 1rem;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.sticky-notes textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 .sticky-notes textarea::placeholder {
   opacity: 0.6;
@@ -863,6 +1032,10 @@ nav li:hover {
   padding: 0;
   cursor: pointer;
   box-shadow: 0 0 0 1px #ccc;
+  transition: var(--transition);
+}
+.sticky-header input[type="color"]:hover {
+  transform: scale(1.1);
 }
 .sticky-header input[type="color"]::-webkit-color-swatch-wrapper {
   padding: 0;
@@ -900,6 +1073,7 @@ nav li:hover {
   flex-direction: column;
   gap: 0.7rem;
   position: relative;
+  box-shadow: var(--shadow-lg);
 }
 .close-btn {
   position: absolute;
@@ -907,6 +1081,10 @@ nav li:hover {
   right: 15px;
   font-size: 1.5rem;
   cursor: pointer;
+  transition: var(--transition);
+}
+.close-btn:hover {
+  color: var(--accent-color);
 }
 .modal-content input,
 .modal-content textarea,
@@ -915,16 +1093,28 @@ nav li:hover {
   font-size: 1rem;
   border: 1px solid var(--text-color);
   border-radius: 4px;
+  transition: var(--transition);
+}
+.modal-content input:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 .modal-content button {
   padding: 0.6rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: var(--transition);
 }
 .modal-content button.danger {
   background-color: var(--danger-color);
   color: white;
+}
+.modal-content button.danger:hover {
+  background-color: #a00d00;
 }
 .hidden {
   display: none;
@@ -942,6 +1132,11 @@ nav li:hover {
   padding: 0.5rem;
   margin: 0.5rem 0;
   background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+.event-summary:hover {
+  box-shadow: var(--shadow-md);
 }
 .event-title-row {
   display: flex;
@@ -963,6 +1158,10 @@ nav li:hover {
   font-size: 1.1rem;
   cursor: pointer;
   margin-left: auto;
+  transition: var(--transition);
+}
+.dropdown-toggle:hover {
+  color: var(--accent-color);
 }
 
 /* ========== THEMES ========== */
@@ -974,6 +1173,9 @@ body.daylight-theme {
   --card-bg: #ffffff;
   --hover: #ffe600;
   --miniCal-bg: #f3ff88;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
 }
 body.moonlight-theme {
   --bg-color: #000000;
@@ -983,6 +1185,9 @@ body.moonlight-theme {
   --card-bg: #0e0e14;
   --hover: rgb(55, 0, 128);
   --miniCal-bg: rgb(27, 0, 63);
+  --shadow-sm: 0 2px 4px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 4px 6px rgba(255, 255, 255, 0.1);
+  --shadow-lg: 0 10px 15px rgba(255, 255, 255, 0.15);
 }
 body.light-theme {
   --bg-color: #e3f2fd;
@@ -992,6 +1197,9 @@ body.light-theme {
   --card-bg: #ffffff;
   --hover: #52b1ff;
   --miniCal-bg: #a8ffff;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
 }
 body.dark-theme {
   --bg-color: #000000;
@@ -1001,6 +1209,9 @@ body.dark-theme {
   --card-bg: #1b1b1b;
   --hover: rgb(0, 0, 0);
   --miniCal-bg: #000000;
+  --shadow-sm: 0 2px 4px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 4px 6px rgba(255, 255, 255, 0.1);
+  --shadow-lg: 0 10px 15px rgba(255, 255, 255, 0.15);
 }
 body.zen-theme {
   --bg-color: #000000;
@@ -1010,6 +1221,9 @@ body.zen-theme {
   --card-bg: #001a02;
   --hover: #66bb6a;
   --miniCal-bg: black;
+  --shadow-sm: 0 2px 4px rgba(102, 187, 106, 0.2);
+  --shadow-md: 0 4px 6px rgba(102, 187, 106, 0.3);
+  --shadow-lg: 0 10px 15px rgba(102, 187, 106, 0.4);
 }
 body.sunburst-theme {
   --bg-color: #000000;
@@ -1019,6 +1233,9 @@ body.sunburst-theme {
   --card-bg: #000000;
   --hover: rgb(255, 118, 84);
   --miniCal-bg: rgb(209, 44, 3);
+  --shadow-sm: 0 2px 4px rgba(255, 118, 84, 0.2);
+  --shadow-md: 0 4px 6px rgba(255, 118, 84, 0.3);
+  --shadow-lg: 0 10px 15px rgba(255, 118, 84, 0.4);
 }
 
 .theme-border {
@@ -1032,6 +1249,7 @@ body.sunburst-theme {
   display: inline-block;
   min-width: 100px;
   text-align: center;
+  box-shadow: var(--shadow-sm);
 }
 
 /* ========== Base themed button style ========== */
@@ -1043,6 +1261,11 @@ body.sunburst-theme {
   cursor: pointer;
   transition: background-color 0.3s;
   color: white;
+  box-shadow: var(--shadow-sm);
+}
+.themed-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 .daylight-theme .themed-btn {
   background-color: #ffe600;
@@ -1131,4 +1354,38 @@ body.sunburst-theme {
     font-size: 1rem;
     padding: 6px 10px;
   }
+}
+
+/* ========== SCROLLBAR STYLING ========== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* ========== FOCUS INDICATORS ========== */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* ========== LOADING ANIMATION ========== */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
 }
