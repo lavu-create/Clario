@@ -202,7 +202,7 @@ canvas {
   display: flex;
   flex-direction: column;
   border-right: 1px solid #ddd;
-  padding: 1rem 1rem 1rem 0rem;
+  padding: 1rem 1rem 1rem 0.8rem;
   justify-content: space-between;
   overflow-y: auto;
   position: relative;
@@ -225,10 +225,11 @@ canvas {
   padding: 0px 4px 0px 0px;
   color: var(--text-color);
   z-index: 1003;
-  position: relative;
+  position: absolute;
   top: 2px;
-  left: 16.89rem;
+  left: 269px;
   height: 25.4px;
+  transition: left 0.3s ease;
 }
 /* Show menu button only on small screens */
 @media (max-width: 768px) {
@@ -275,6 +276,11 @@ canvas {
   width: 0;
   padding: 0;
   border: none;
+}
+.sidebar.expanded {
+  width: 240px;
+  padding: 1rem;
+  border-right: 1px solid #ddd;
 }
 /* Hide all inner content when collapsed */
 .sidebar.collapsed > *:not(.logo-section) {

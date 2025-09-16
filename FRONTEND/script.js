@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sidebarWrapper.classList.toggle('collapsed');
     container.classList.toggle("sidebar-collapsed");
     sidebar.classList.toggle("collapsed");
+    sidebar.classList.toggle("expanded");
   });
 
   const themeToggle = document.getElementById("themeToggle");
@@ -945,6 +946,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 600000);
   }
   initWeather();
+  
 
 
   //Location

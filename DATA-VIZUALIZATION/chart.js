@@ -36,8 +36,6 @@ function renderTaskChart() {
 }
 
 
-
-
 function renderEventChart() {
   const events = JSON.parse(localStorage.getItem("events") || "[]");
   // Group events by month (YYYY-MM)
