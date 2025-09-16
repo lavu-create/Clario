@@ -95,20 +95,21 @@ section#historySection.hidden, section#settingsSection.hidden {
   border: 2px solid var(--accent-color);
   background: transparent;
   color: var(--text-color);
-  padding: 4px 10px 4px 10px;
+  padding: 4px 10px 2px 10px;
+  margin: 4px 0px 4px 0px;
   font-size: 20px;
   border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
   cursor: pointer;
   transition: var(--transition);
 }
 .color-sett-btn:hover {
   background-color: var(--accent-color);
-  color: white;
+  color: var(--text-color);
 }
 .sett-btn {
-  margin: 8px 10px 0px 0px;
+  font-size: 12px;
+  color: var(--text-color);
+  margin: 8px 4px 0px 0px;
   cursor: pointer;
   padding: 6px 12px;
   border-radius: var(--radius);
@@ -118,7 +119,7 @@ section#historySection.hidden, section#settingsSection.hidden {
 }
 .sett-btn:hover {
   background-color: var(--accent-color);
-  color: white;
+  color: var(--text-color);
 }
 .settings-body {
   padding: 5px 0px 4px 0px;
@@ -169,15 +170,13 @@ section#historySection.hidden, section#settingsSection.hidden {
   text-decoration-line: underline;
 }
 .term-btn {
-  margin-top: 10px;
+  font-size: 14px;
+  margin: 14px 0px 10px 0px;
   background: transparent;
   border: none;
   color: var(--text-color);
   cursor: pointer;
   transition: var(--transition);
-}
-.term-btn:hover {
-  color: var(--accent-color);
 }
 .set-his {
   display: flex;
