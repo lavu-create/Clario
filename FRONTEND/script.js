@@ -504,7 +504,7 @@ document.addEventListener("DOMContentLoaded", () => {
         span.textContent = task.text;
         // Delete Button
         const delBtn = document.createElement("button");
-        delBtn.textContent = "🗑️";
+        delBtn.innerHTML = '<i data-feather="trash-2"></i>';
         delBtn.style.marginLeft = "10px";
         delBtn.addEventListener("click", () => {
           tasks.splice(index, 1);
@@ -644,12 +644,12 @@ document.addEventListener("DOMContentLoaded", () => {
       moodPopup.classList.add("hidden");
       // Save mood with timestamp
       const moods = JSON.parse(localStorage.getItem("moodLog") || "[]");
-    const today = new Date().toISOString().split("T")[0];
-moods.push({ mood, date: today });
-localStorage.setItem("moodLog", JSON.stringify(moods));
-renderMoodChart();
-renderMoodEventChart();
-renderMoodTaskChart();
+      const today = new Date().toISOString().split("T")[0];
+      moods.push({ mood, date: today });
+      localStorage.setItem("moodLog", JSON.stringify(moods));
+      renderMoodChart();
+      renderMoodEventChart();
+      renderMoodTaskChart();
     });
   });
   // Close popup if clicked outside
@@ -1072,6 +1072,8 @@ renderMoodTaskChart();
   if (typeof renderTaskChart === "function") renderTaskChart();
   if (typeof renderEventChart === "function") renderEventChart();
   if (typeof renderMoodChart === "function") renderMoodChart();
- if (typeof renderMoodEventChart  === "function") renderMoodEventChart();
+  if (typeof renderMoodEventChart  === "function") renderMoodEventChart();
   if (typeof renderMoodTaskChart === "function") renderMoodTaskChart();
+
+  feather.replace();
 });

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
@@ -12,7 +14,12 @@
   --danger-color: #bb1000;
   --hover: white;
   --miniCal-bg: white;
-  --main-font: 'Segoe UI', sans-serif;
+  --main-font: 'Open Sans', sans-serif;
+  --heading-font: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--heading-font);
 }
 
 html, body {
@@ -20,6 +27,17 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* Prevent body scroll */
+}
+
+.feather {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
 }
 
 /* ========== Universal Button Hover Effect ========== */
@@ -162,14 +180,14 @@ canvas {
 
 /* ── Override history‐section chart sizing ─────────────────────────── */
 #historySection .chart {
-  width: 320px !important;   /* or whatever card width you prefer */
-  height: 200px !important;  /* give them more vertical room */
+  width: 320px !important; 
+  height: 200px !important;
 }
 
 /* Ensure each .history block stays that width in the scroll row */
 .history-scroll-wrapper > .history {
   flex: 0 0 auto;
-  min-width: 320px;          /* match the canvas width */
+  min-width: 320px;
 }
 
 .sidebar-collapsed .main-content {
