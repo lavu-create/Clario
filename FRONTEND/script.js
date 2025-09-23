@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(`Logged in successfully! Welcome ${data.name || ""}`);
         loginModal.classList.add("hidden");
         localStorage.setItem("token", data.token);
+        localStorage.setItem("userName", data.name);
+        localStorage.setItem("userEmail", data.email);
       }
     } catch (error) {
       console.error(error);
@@ -59,11 +61,34 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(`Signup successful! Welcome ${data.name || ""}`);
         loginModal.classList.add("hidden");
         localStorage.setItem("token", data.token);
+        localStorage.setItem("userName", data.name);
+        localStorage.setItem("userEmail", data.email);
       }
     } catch (error) {
       console.error(error);
       alert("Server error. Please try again later.");
     }
+  });
+
+  const openInfoBtn = document.getElementById("openInfoBtn"); // your Info button
+  const infoModal = document.getElementById("infoModal");     // Info modal container
+  const closeInfoModal = document.getElementById("closeInfoModal"); // Close button in modal
+  const infoName = document.getElementById("infoName");       // element to show name
+  const infoEmail = document.getElementById("infoEmail");     // element to show email
+  const infoProfilePic = document.getElementById("infoProfilePic"); // element to show profile pic
+  const profPicBtn = document.getElementById("profilePicBtn"); // existing profile pic in sidebar
+  // Open Info modal
+  openInfoBtn.addEventListener("click", () => {
+    // Set user info from localStorage
+    infoName.textContent = localStorage.getItem("userName") || "Unknown";
+    infoEmail.textContent = localStorage.getItem("userEmail") || "Unknown";
+    // Set profile pic from sidebar
+    infoProfilePic.src = profPicBtn.src;
+    infoModal.classList.remove("hidden");
+  });
+  // Close Info modal
+  closeInfoModal.addEventListener("click", () => {
+    infoModal.classList.add("hidden");
   });
 
   const menuBtn = document.getElementById('menuToggle');

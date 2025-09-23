@@ -165,7 +165,7 @@
         <div id="accountSettings" class="settings">
           <h3 class="settings-head">👤 Account Settings</h3>
           <div class="settings-body">
-            <button class="sett-btn">ℹ️ Your Info</button>
+            <button id="openInfoBtn" class="sett-btn">ℹ️ Your Info</button>
             <button id="openLoginBtn" class="sett-btn">🔑 Login / Sign Up</button>
             <button class="sett-btn">📧 Email & Accounts</button>
             <button class="sett-btn">🛡️ Privacy</button>
@@ -372,6 +372,18 @@
       </form>
     </div>
   </div>
+
+  <!-- Info Modal -->
+  <div id="infoModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeInfoModal" class="close-btn">&times;</span>
+      <h2>User Info</h2>
+      <img id="infoProfilePic" src="" alt="Profile Pic" style="width:100px;height:100px;border-radius:50%;" />
+      <p><strong>Name:</strong> <span id="infoName"></span></p>
+      <p><strong>Email:</strong> <span id="infoEmail"></span></p>
+    </div>
+  </div>
+
 
   <!-- Notification Toast -->
   <div id="notification" class="toast hidden">Saved!</div>
