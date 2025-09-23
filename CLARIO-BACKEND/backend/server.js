@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // ✅ CORS setup
 app.use(cors({
-    origin: 'https://YOUR_FRONTEND_URL', // replace with your frontend URL
+    origin: 'https://clario-1-4iuw.onrender.com',
     credentials: true
 }));
 
