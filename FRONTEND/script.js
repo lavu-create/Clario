@@ -1,4 +1,71 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const loginModal = document.getElementById("loginModal");
+  const openLoginBtn = document.getElementById("openLoginBtn");
+  const closeLoginModal = document.getElementById("closeLoginModal");
+  const loginForm = document.getElementById("loginForm");
+  const signupForm = document.getElementById("signupForm");
+  const showLogin = document.getElementById("switchToLogin");
+  const showSignup = document.getElementById("switchToSignup");
+  // Open / close modal
+  openLoginBtn.addEventListener("click", () => loginModal.classList.remove("hidden"));
+  closeLoginModal.addEventListener("click", () => loginModal.classList.add("hidden"));
+  // Switch forms
+  showLogin.addEventListener("click", () => {
+    loginForm.classList.remove("hidden");
+    signupForm.classList.add("hidden");
+  });
+  showSignup.addEventListener("click", () => {
+    signupForm.classList.remove("hidden");
+    loginForm.classList.add("hidden");
+  });
+  // Login form submit
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    try {
+      const response = await fetch("https://clario-8rvp.onrender.com/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (!response.ok) alert(data.message || "Login failed");
+      else {
+        alert(`Logged in successfully! Welcome ${data.name || ""}`);
+        loginModal.classList.add("hidden");
+        localStorage.setItem("token", data.token);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server error. Please try again later.");
+    }
+  });
+  // Signup form submit
+  signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("signupName").value;
+    const email = document.getElementById("signupEmail").value;
+    const password = document.getElementById("signupPassword").value;
+    try {
+      const response = await fetch("https://clario-8rvp.onrender.com/api/users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await response.json();
+      if (!response.ok) alert(data.message || "Signup failed");
+      else {
+        alert(`Signup successful! Welcome ${data.name || ""}`);
+        loginModal.classList.add("hidden");
+        localStorage.setItem("token", data.token);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server error. Please try again later.");
+    }
+  });
+
   const menuBtn = document.getElementById('menuToggle');
   const sidebar = document.querySelector(".sidebar");
   const sidebarWrapper = document.querySelector('.sidebar-wrapper');
