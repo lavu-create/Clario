@@ -2,10 +2,10 @@
 <table>
   <tr>
     <td>
-      <img src="FRONTEND/assets/App%20logo.jpg" alt="Clario App Logo" width="100">
+      <img src="FRONTEND/assets/App%20logo.jpg" alt="Clario App Logo" width="140">
     </td>
     <td style="padding-left:15px; vertical-align:top;">
-      <img src="FRONTEND/assets/website%20logo.jpg" alt="Clario Website Logo" width="100">
+      <img src="FRONTEND/assets/website%20logo.jpg" alt="Clario Website Logo" width="100"><br>
       Personal Dashboard for Tasks, Mood Tracking & Productivity Analytics<br>
       ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone<br>
       👩‍💻 By Team Clario: Lavanya · Nitesh
