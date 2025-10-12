@@ -1,4 +1,4 @@
-# 🌤️ Clario – All-in-One Productivity & Wellness Dashboard
+# 🌤️Clario: All-in-One Productivity & Wellness Dashboard
 <table>
   <tr>
     <td>
