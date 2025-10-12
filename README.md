@@ -102,14 +102,19 @@ Interactive charts to display:
 ## 📁 Project Structure
 
 ```
-clario/  
-├── frontend/           → Complete UI (HTML, CSS, JS)  
-│   └── assets/         → Icons, sounds, images (used in frontend)
-├── backend/            → Express APIs and server logic  
-├── auth/               → Signup/Login, JWT handling  
-├── data-viz/           → Mood & task analytics (Charts)
-├── README.md           → Project overview and documentation  
-├── LICENSE             → MIT License or other (open source license)
+Clario/  
+├── CLARIO-BACKEND/        → Express APIs and server logic
+│   └── backend/           → Signup/Login, JWT handling
+│       ├── config/
+│       ├── controllers/
+│       ├── middleware/
+│       ├── models/
+│       ├── routes/
+│       └── utils/
+├── DATA-VIZUALIZATION/    → Mood & task analytics (Charts)
+├── FRONTEND/              → Complete UI (HTML, CSS, JS)
+│   └── assets/            → Icons, sounds, images (used in frontend)  
+└── README.md              → Project overview and documentation
 
 ```
 
