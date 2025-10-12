@@ -1,4 +1,5 @@
 # 🌤️ Clario – All-in-One Productivity & Wellness Dashboard
+[App Logo](https://1drv.ms/i/c/F68B06F727EF9DBF/EarTEHfpHQNAsYV7Y6gMTu8BSa4THBv5ImtQmpadew378A?e=NcY1DD)
 > Personal Dashboard for Tasks, Mood Tracking & Productivity Analytics
 
 > ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone 
@@ -36,10 +37,12 @@ Clario solves this by offering a sleek, responsive, all-in-one dashboard that he
 
 ## 🌐 Live Demo
 
+
+
 Check out Clario in action:
 
 - [**Frontend (Live):**](https://lavu-create.github.io/Clario/FRONTEND/)  
-- [**Backend (API):**](https://your-backend-link)  
+- [**Backend (API):**](https://clario-8rvp.onrender.com)  
 
 > Note: Some features (like notifications or data export) may require backend APIs to be running.
 
