@@ -1,4 +1,5 @@
 # 🌤️ Clario – All-in-One Productivity & Wellness Dashboard
+> Personal Dashboard for Tasks, Mood Tracking & Productivity Analytics
 
 > ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone 
 > 👩‍💻 By Team Clario: Lavanya · Nitesh
@@ -33,6 +34,17 @@ Clario solves this by offering a sleek, responsive, all-in-one dashboard that he
 
 ---
 
+## 🌐 Live Demo
+
+Check out Clario in action:
+
+- [**Frontend (Live):**](https://your-frontend-link)  
+- [**Backend (API):**](https://your-backend-link)  
+
+> Note: Some features (like notifications or data export) may require backend APIs to be running.
+
+---
+
 ## 💡 Why It Matters
 
 - Clario helps you take control of your day and well-being by:
@@ -45,34 +57,34 @@ Clario solves this by offering a sleek, responsive, all-in-one dashboard that he
 
 ## 🧰 Tech Stack
 
-| Layer          | Technologies                                |
-|----------------|---------------------------------------------|
-| Frontend       | HTML, CSS, JavaScript                       |
-| Backend        | Node.js, Express.js                         |
-| Auth           | JWT, bcrypt                                 |
-| Data Storage   | MongoDB or JSON fallback + LocalStorage     |
-| Charts         | Chart.js                                    |
-| Notifications  | Web Audio API with online sound             |
-| Weather API    | OpenWeatherMap                              |
-| Deployment     | GitHub Pages (frontend) + Render (backend)  |
+| Layer              | Technologies                                       | Purpose                                 |
+|--------------------|----------------------------------------------------|-----------------------------------------|
+| Frontend           | HTML, CSS, JavaScript                              | Responsive layout, various themes       |
+| Backend            | Node.js, Express.js                                | REST APIs, JWT protected routes         |
+| Authentication     | JWT, bcrypt                                        | Password hashing and session management |
+| Database           | MongoDB (primary) / JSON + LocalStorage (fallback) | Tasks, events, moods                    |
+| Charts & Analytics | Chart.js                                           | Visualizing moods, tasks, events        |
+| Notifications      | Web Audio API                                      | Online notification sounds              |
+| Weather            | OpenWeatherMap API                                 | Auto/manual location updates            |
+| Deployment         | GitHub Pages(frontend) + Render(backend)           | Fully hosted, live updates              |
 
 ---
 
 ## 🚀 Getting Started
 
 ### 🖥️ Frontend
-
 ```bash
-cd clario/frontend  
-open index.html   # or open manually in browser
+cd CLARIO/FRONTEND
+# Open index.html directly in your browser OR
+# Start a local HTTP server for full JS features (optional):
+# python -m http.server 5500
 ```
 
 ### 🔧 Backend
-
 ```bash
-cd clario/backend  
-npm install  
-node app.js
+cd CLARIO/CLARIO-BACKEND/backend
+npm install          # Install dependencies
+node app.js          # Start backend server
 ```
 
 Backend runs at: `http://localhost:3000`
@@ -81,15 +93,15 @@ Backend runs at: `http://localhost:3000`
 
 ## 🔐 Auth Flow
 
-1. Users sign up with email and password  
-2. Passwords are securely hashed using `bcrypt`  
-3. On login, a JWT token is issued  
-4. Protected routes require valid token  
-5. Token stored in `localStorage` for session persistence  
+1. User signs up with email + password.
+2. Password is hashed securely using bcrypt.
+3. On login, a JWT token is issued.
+4. Protected routes require a valid token.
+5. Token is stored in localStorage for session persistence.  
 
 ---
 
-## 📊 Data Visualization (by Vaishnavi)
+## 📊 Data Visualization
 
 Interactive charts to display:
 
@@ -122,10 +134,10 @@ Clario/
 
 ## 🧑‍💻 Team Clario
 
-| Name       | Role                                | Contribution                                                   |
-|------------|-------------------------------------|----------------------------------------------------------------|
-| Lavanya    | Frontend, Data Visualization (Lead) | UI, live clock, reminders, weather UI, Mood and task analytics |
-| Nitesh     | Backend, Database & Authentication  | REST APIs, task/event data persistence, JWT login/signup       |
+| Name    | Role                           | Contribution                                   |
+|---------|--------------------------------|------------------------------------------------|
+| Lavanya | Frontend & Data Viz Lead, LEAD | UI, live clock, reminders, weather & analytics |
+| Nitesh  | Backend & Database             | REST APIs, data persistence & JWT auth         |
 
 ---
 
@@ -146,10 +158,10 @@ git push origin feature/your-feature-name
 ## 🛠️ Future Enhancements
 
 - 🎙️ Voice-based reminders  
-- 🧠 AI-based mood prediction  
-- 👥 Caregiver-patient sync calendar  
-- 📲 Mobile app via React Native or Flutter  
-- 🧭 PWA support with offline-first capability  
+- 🧠 AI-powered mood predictions 
+- 👥 Shared calendar sync
+- 📲 Mobile app (React Native / Flutter)
+- 🧭 PWA support (offline-first)
 
 ---
 
