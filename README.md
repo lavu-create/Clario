@@ -38,7 +38,7 @@ Clario solves this by offering a sleek, responsive, all-in-one dashboard that he
 
 Check out Clario in action:
 
-- [**Frontend (Live):**](https://your-frontend-link)  
+- [**Frontend (Live):**](https://lavu-create.github.io/Clario/FRONTEND/)  
 - [**Backend (API):**](https://your-backend-link)  
 
 > Note: Some features (like notifications or data export) may require backend APIs to be running.
