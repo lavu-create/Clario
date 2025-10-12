@@ -1,6 +1,6 @@
 # 🌤️ Clario – All-in-One Productivity & Wellness Dashboard
 <p>
-  <img src="FRONTEND/assets/App%20logo.jpg" alt="Clario App Logo" width="200" style="vertical-align:top; margin-right:15px;">
+  <img src="FRONTEND/assets/App%20logo.jpg" alt="Clario App Logo" width="200">
   <span>
     Personal Dashboard for Tasks, Mood Tracking & Productivity Analytics<br>
     ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone<br>
