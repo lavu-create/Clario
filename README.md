@@ -5,9 +5,14 @@
       <img src="FRONTEND/assets/App%20logo.jpg" alt="Clario App Logo" width="100">
     </td>
     <td style="padding-left:15px; vertical-align:top;">
-      Personal Dashboard for Tasks, Mood Tracking & Productivity Analytics<br>
-      ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone<br>
-      👩‍💻 By Team Clario: Lavanya · Nitesh
+      <tr>
+        <img src="FRONTEND/assets/website%20logo.jpg" alt="Clario Website Logo" width="100">
+      </tr>
+      <tr>
+        Personal Dashboard for Tasks, Mood Tracking & Productivity Analytics<br>
+        ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone<br>
+        👩‍💻 By Team Clario: Lavanya · Nitesh
+      </tr>
     </td>
   </tr>
 </table>
