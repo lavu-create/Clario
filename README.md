@@ -1,7 +1,7 @@
 # 🌤️ Clario – All-in-One Productivity & Wellness Dashboard
 
 > ⚡️ Built for WCHL Hackathon 2025 – Enhancing Productivity & Well-being for Everyone 
-> 👩‍💻 By Team Clario: Lavanya · Akhil · Nitesh · Vaishnavi
+> 👩‍💻 By Team Clario: Lavanya · Nitesh
 
 ---
 
@@ -117,12 +117,10 @@ clario/
 
 ## 🧑‍💻 Team Clario
 
-| Name       | Role               | Contribution                            |
-|------------|--------------------|-----------------------------------------|
-| Lavanya    | Frontend Lead      | UI, live clock, reminders, weather UI   |
-| Akhil      | Backend & DB       | REST APIs, task/event data persistence  |
-| Nitesh     | Auth & Integration | JWT login/signup, system architecture   |
-| Vaishnavi  | Data Visualization | Mood and task analytics (Chart.js)      |
+| Name       | Role                                | Contribution                                                   |
+|------------|-------------------------------------|----------------------------------------------------------------|
+| Lavanya    | Frontend, Data Visualization (Lead) | UI, live clock, reminders, weather UI, Mood and task analytics |
+| Nitesh     | Backend, Database & Authentication  | REST APIs, task/event data persistence, JWT login/signup       |
 
 ---
 
