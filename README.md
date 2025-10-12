@@ -2,7 +2,7 @@
 <table>
   <tr>
     <td>
-      <img src="FRONTEND/assets/App%20logo.jpg" alt="Clario App Logo" width="140">
+      <img src="FRONTEND/assets/App%20logo.jpg" alt="Clario App Logo" width="100">
     </td>
     <td style="padding-left:15px; vertical-align:top;">
       Personal Dashboard for Tasks, Mood Tracking & Productivity Analytics<br>
