@@ -1,4 +1,4 @@
-# 🌤️ Clario: Mood-aware productivity calendar using AI
+# 🌤️ Clario: AI-Driven Mood-Aware Productivity Calendar
 <table>
   <tr>
     <td>
